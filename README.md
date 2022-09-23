@@ -1,18 +1,18 @@
-![Open in Codespaces](https://classroom.github.com/assets/open-in-codespaces-abfff4d4e15f9e1bd8274d9a39a0befe03a0632bb0f153d0ec72ff541cedbe34.svg)
-# Nome do projeto
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+## Getting Started
 
-## Alunos integrantes da equipe
+Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 4
-* Nome completo do aluno 4
+## Folder Structure
 
-## Professores responsáveis
+The workspace contains two folders by default, where:
 
-* Nome completo do professor 1
-* Nome completo do professor 2
+- `src`: the folder to maintain sources
+- `lib`: the folder to maintain dependencies
 
+Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+
+## Dependency Management
+
+The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
