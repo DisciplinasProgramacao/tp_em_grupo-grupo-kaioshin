@@ -1,9 +1,29 @@
+/**
+ * • Cada voo possui um valor-base de tarifa. Este valor será usado para compor
+ * os preços dos
+ * bilhetes, da seguinte maneira:
+ * 
+ *  Se um bilhete é composto por um único voo, seu valor será o valor do voo
+ * com um acréscimo de 10%;
+ * 
+ *  Se o bilhete tem vários voos, seu valor será a soma do preço do voo mais
+ * caro com 50% do preço dos voos restantes.
+ * 
+ *  A cada R$500 do valor do bilhete, são gerados 500 pontos de fidelidade, sem valores
+ * fracionários (por exemplo, um bilhete de R$1000 gera 1000 pontos, um bilhete
+ * de valor  R$1500 gera 1500 pontos. Um bilhete de R$1300 gera somente 1000 pontos).
+ * 
+ *  Por fim, bilhetes sofrem alterações de preços e pontuação nos casos
+ * especiais:
+ */
+
 import java.util.Date;
 
 public class Voo {
     private static String ID_VOO = "7845";
     private Trecho trecho;
     private Date data;
+    private double baseValue;
 
     public void addTrecho(Trecho trecho){
         this.trecho = trecho;
@@ -26,5 +46,13 @@ public class Voo {
         str.append(trecho.toString());
         s = str.toString();
         return s;
+    }
+
+    public void setBaseValue(double baseValue) {
+        this.baseValue = baseValue;
+    }
+
+    public double getBaseValue() {
+        return this.baseValue;
     }
 }
