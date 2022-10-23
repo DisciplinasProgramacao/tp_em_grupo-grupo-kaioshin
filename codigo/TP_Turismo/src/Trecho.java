@@ -10,11 +10,11 @@ public class Trecho {
         this.id = idTrecho;
     }
 
-    public String idTrecho(){
-        return id;
+    public String idTrecho() {
+        return this.id;
     }
 
-    public String toString(){
+    public String toString() {
         String s;
         StringBuilder str = new StringBuilder("Trecho : " + id);
         str.append(" || origem : " + origem + " || destinho : " + destino);

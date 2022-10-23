@@ -48,6 +48,9 @@ import java.beans.JavaBean;
 import java.util.Date;
 
 public class App {
+    /**
+     * Método para "limpar" tela console
+     */
     public static void clear(){ 
 
         System.out.print("\033[H\033[2J"); 

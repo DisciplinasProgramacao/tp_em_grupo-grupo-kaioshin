@@ -25,22 +25,22 @@ public class Voo {
     private Date data;
     private double baseValue;
 
-    public void addTrecho(Trecho trecho){
+    public void addTrecho(Trecho trecho) {
         this.trecho = trecho;
     }
 
-    public Trecho removeTrecho(String idTrecho){
+    public Trecho removeTrecho(String idTrecho) {
         Trecho aux;
         aux = this.trecho;
         this.trecho = null;
         return aux;
     }
 
-    public void addData(Date data){
+    public void addData(Date data) {
         this.data = data;
     }
     
-    public String toString(){
+    public String toString() {
         String s;
         StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + data + " || ");
         str.append(trecho.toString());
