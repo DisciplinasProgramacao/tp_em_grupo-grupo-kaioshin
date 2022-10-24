@@ -67,7 +67,7 @@ public class Bilhete implements IPromocao {
         this.voos.remove(voo);
     }
 
-
+    
     public String showVoo() {
         String s;        
         StringBuilder str = new StringBuilder("Bilhete : " + id + " || ");

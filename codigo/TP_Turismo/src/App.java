@@ -37,8 +37,7 @@
  * a) adaptar o diagrama de classes original para os novos requisitos; UML que
  *    modele corretamente o que foi descrito;
  * b) implementar as regras para os novos requisitos;
- * c) criar um protótipo de sistema para que os futuros clientes possam usar e
- *      testar o sistema.
+ * c) criar um protótipo de sistema para que os futuros clientes possam usar e testar o sistema.
  *      Esta primeira etapa do trabalho está prevista para terminar, no máximo, em
  *      24/10. As etapas
  *      posteriores estão previstas para 27/11 e 15/12.
@@ -46,6 +45,8 @@
 
 import java.beans.JavaBean;
 import java.util.Date;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class App {
     /**
@@ -55,21 +56,123 @@ public class App {
 
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+    }
+    public static void menu() {
+        System.out.println(" ------------------------- ");
+        System.out.println("|   SELECIONE UMA OPÇÃO:  |");
+        System.out.println(" ========================= ");
+        System.out.println("|1º - Informar Trecho     |");
+        System.out.println("|2º -                     |");
+        System.out.println("|3º -                     |");
+        System.out.println("|4º -                     |");
+        System.out.println("|5º -                     |");
+        System.out.println("|6º - Sair                |");
+        System.out.println("|                         |");
+        System.out.println("|                         |");
+        System.out.println(" ------------------------- ");
+
+        System.out.print("\nOpção: ");
     } 
     public static void main(String[] args) throws Exception {
+        Scanner key = new Scanner(System.in);
+        clear();
+        menu();
+        int opcao = key.nextInt();
+        do{
+            switch(opcao){
+                case 1:
+                    String origem = "", destino = "", id = ""; 
+                    clear();
+                    System.out.println();
+                    System.out.print("Local de Origem: ");               
+                    origem = key.nextLine();//Não sei porque não está pedindo para inserir o valor só com 1 por isso coloquei 2
+                    origem = key.nextLine();
+
+                    System.out.print("Local de Destino: ");
+                    destino = key.nextLine();
+
+                    System.out.print("Local de Id: ");
+                    id = key.nextLine();
+
+                    Trecho trecho = new Trecho();
+                    trecho.addTrecho(origem, destino, id);
+                    clear();
+                    
+                    System.out.println("Intinerário inserido com sucesso!");
+                    TimeUnit.SECONDS.sleep(2);
+
+                    clear();
+                    menu();
+                    opcao = key.nextInt();
+                break;
+    
+                case 2:
+                    clear();
+                    System.out.println("Opção 2");
+                    TimeUnit.SECONDS.sleep(2);
+
+                    clear();
+                    menu();
+                    opcao = key.nextInt();
+                break;
+
+                case 3:
+                    clear();
+                    System.out.println("Opção 3");
+                    TimeUnit.SECONDS.sleep(2);
+
+                    clear();
+                    menu();
+                    opcao = key.nextInt();
+                break;
+
+                case 4:
+                    clear();
+                    System.out.println("Opção 4");
+                    TimeUnit.SECONDS.sleep(2);
+
+                    clear();
+                    menu();
+                    opcao = key.nextInt();
+                break;
+
+                case 5:
+                    clear();
+                    System.out.println("Opção 5");
+                    TimeUnit.SECONDS.sleep(2);
+
+                    clear();
+                    menu();
+                    opcao = key.nextInt();
+                break;
+
+                case 6:
+                    clear();
+                    System.out.println("Obrigado e volte sempre!");
+                    opcao = -1;
+                    TimeUnit.SECONDS.sleep(2);
+                    clear();
+                    break;
+
+                    default:
+                    System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 5.");
+                    System.out.println("\n\n\n");
+                    menu();
+                break;
+            }
+        
+        }while(opcao > 0);
         /**
          * teste funcionalidade das classe
          * 
          */
-        clear();
-        Trecho trecho = new Trecho();
-        trecho.addTrecho("parana", "curitiba", "4552");
-        Voo voo = new Voo();
-        Date data = new Date(122, 04, 1);
-        voo.addTrecho(trecho);
-        voo.addData(data);
-        Bilhete bilhete = new Bilhete();
-        bilhete.addVoo(voo);
-        System.out.println(bilhete.showVoo());
+        
+        // Voo voo = new Voo();
+        // Date data = new Date(122, 04, 1);
+        // voo.addTrecho(trecho);
+        // voo.addData(data);
+        // Bilhete bilhete = new Bilhete();
+        // bilhete.addVoo(voo);
+        // System.out.println(bilhete.showVoo());
     }
 }
