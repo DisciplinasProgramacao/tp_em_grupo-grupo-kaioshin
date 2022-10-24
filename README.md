@@ -5,8 +5,9 @@ Desenvolvimento de um sistema de software de uma companhia aérea, onde a estrat
 ## Alunos integrantes da equipe
 
 * Caio Augusto Rebelo Santos
-* João Paulo de Sá Campos
 * Kaio Gomes
+* Pedro Augusto
+* Nathan Victor
 
 ## Professores responsáveis
 
