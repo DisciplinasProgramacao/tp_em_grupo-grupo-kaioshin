@@ -62,7 +62,7 @@ public class App {
         System.out.println("|   SELECIONE UMA OPÇÃO:  |");
         System.out.println(" ========================= ");
         System.out.println("|1º - Informar Trecho     |");
-        System.out.println("|2º -                     |");
+        System.out.println("|2º - Adicionar Voo       |");
         System.out.println("|3º -                     |");
         System.out.println("|4º -                     |");
         System.out.println("|5º -                     |");
@@ -75,6 +75,9 @@ public class App {
     } 
     public static void main(String[] args) throws Exception {
         Scanner key = new Scanner(System.in);
+        Trecho trecho = new Trecho();
+        Voo voo = new Voo();
+        Bilhete bilhete = new Bilhete();
         clear();
         menu();
         int opcao = key.nextInt();
@@ -94,7 +97,7 @@ public class App {
                     System.out.print("Local de Id: ");
                     id = key.nextLine();
 
-                    Trecho trecho = new Trecho();
+                    
                     trecho.addTrecho(origem, destino, id);
                     clear();
                     
@@ -108,7 +111,18 @@ public class App {
     
                 case 2:
                     clear();
-                    System.out.println("Opção 2");
+                    System.out.println("Informe a data do voo");
+                    System.out.print("Ano: ");
+                    int ano = key.nextInt(); 
+                    System.out.print("Mês: ");
+                    int mes = key.nextInt(); 
+                    System.out.print("Dia: ");
+                    int dia = key.nextInt(); 
+                    Date data = new Date(ano, mes, dia);
+                    voo.addTrecho(trecho);
+                    voo.addData(data);
+
+                    System.out.println("\n\nVoo inserido com sucesso!");
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
@@ -118,12 +132,12 @@ public class App {
 
                 case 3:
                     clear();
-                    System.out.println("Opção 3");
-                    TimeUnit.SECONDS.sleep(2);
+                    bilhete.addVoo(voo);
+                    System.out.println(bilhete.showVoo());
 
-                    clear();
-                    menu();
-                    opcao = key.nextInt();
+                    // clear();
+                    // menu();
+                    // opcao = key.nextInt();
                 break;
 
                 case 4:
