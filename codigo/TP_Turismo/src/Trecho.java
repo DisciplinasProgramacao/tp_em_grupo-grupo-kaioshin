@@ -17,7 +17,7 @@ public class Trecho {
     public String toString() {
         String s;
         StringBuilder str = new StringBuilder("Trecho : " + id);
-        str.append(" || origem : " + origem + " || destinho : " + destino);
+        str.append(" || origem : " + origem + " || destinho : " + destino + "\n");
         s = str.toString();
         return s;
     }

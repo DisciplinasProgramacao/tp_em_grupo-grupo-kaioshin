@@ -79,9 +79,11 @@ public class App {
         Voo voo = new Voo();
         Bilhete bilhete = new Bilhete();
         clear();
-        menu();
-        int opcao = key.nextInt();
+        int opcao = 0;
+        
         do{
+            menu();
+            opcao = key.nextInt();
             switch(opcao){
                 case 1:
                     String origem = "", destino = "", id = ""; 
@@ -105,8 +107,7 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    menu();
-                    opcao = key.nextInt();
+                    opcao = 0;
                 break;
     
                 case 2:
@@ -126,18 +127,19 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    menu();
-                    opcao = key.nextInt();
+                    opcao = 0;
                 break;
 
-                case 3:
+                case 3:                    
                     clear();
                     bilhete.addVoo(voo);
                     System.out.println(bilhete.showVoo());
+                    System.out.println("\n\nPressione enter para continuar: ");
+                    String aux = key.nextLine();
+                    String aux1 = key.nextLine();
 
-                    // clear();
-                    // menu();
-                    // opcao = key.nextInt();
+                    clear();
+                    opcao = 0;
                 break;
 
                 case 4:
@@ -146,8 +148,7 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    menu();
-                    opcao = key.nextInt();
+                    opcao = 0;
                 break;
 
                 case 5:
@@ -156,8 +157,7 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    menu();
-                    opcao = key.nextInt();
+                    opcao = 0;
                 break;
 
                 case 6:
@@ -168,14 +168,16 @@ public class App {
                     clear();
                     break;
 
-                    default:
-                    System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 5.");
+                default:
+                    
+                    clear();
+                    System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 6.");
                     System.out.println("\n\n\n");
-                    menu();
+                    opcao = 0;
                 break;
             }
         
-        }while(opcao > 0);
+        }while(opcao >= 0);
         /**
          * teste funcionalidade das classe
          * 

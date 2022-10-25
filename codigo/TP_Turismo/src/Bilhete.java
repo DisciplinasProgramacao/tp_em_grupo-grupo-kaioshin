@@ -71,10 +71,9 @@ public class Bilhete implements IPromocao {
     public String showVoo() {
         String s;        
         StringBuilder str = new StringBuilder("Bilhete : " + id + " || ");
-        for(int i = 0; i < voos.size(); i++ ){
-            Voo aux;
-            aux = voos.get(i);
-            str.append(aux.toString());
+        for (Voo voo : voos) {
+            if(!voo.toString().isEmpty() && voo.toString() != null)
+            str.append(voo.toString());
         }
         s = str.toString();
         return s;
