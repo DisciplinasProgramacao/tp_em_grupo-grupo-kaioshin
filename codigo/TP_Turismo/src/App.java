@@ -1,3 +1,5 @@
+
+//Sprint 2
 /**
  * Na fase 2, começará o processo de formação de bilhetes para venda, com suas
  * respectivas regras.
@@ -42,6 +44,35 @@
  *      24/10. As etapas
  *      posteriores estão previstas para 27/11 e 15/12.
  */
+//Sprint 3
+/**
+ * Na fase 3 será implementado o processo de compra efetiva dos bilhetes pelos clientes. Um cliente
+ * precisa ter todas as suas compras armazenadas por ordem cronológica de data de voo. As compras
+ * obedecem às regras anteriores de venda de bilhetes, as quais são complementadas por estas:
+ * • A cada 10.500 pontos acumulados em um período de 12 meses, o cliente ganha o próximo
+ * bilhete de graça. Lembre-se que este bilhete não dá direito a pontos.
+ * • Um cliente pode contratar um acelerador de pontos. Um acelerador dá direito a um
+ * multiplicador de pontos originalmente obtidos em qualquer bilhete enquanto estiver ativo.
+ * Temos dois tipos de aceleradores: prata, com multiplicador 1.25 e preto, com multiplicador 1.5
+ * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
+ */
+//Sprint 4
+/**
+ * A fase 4 é definida pela finalização dos testes e implementação do protótipo para a empresa cliente.
+ * Este protótipo precisa ter as funcionalidades básicas de cadastro de cliente, localização de voos e
+ * compra de bilhetes. A companhia precisa, também, das informações abaixo:
+ * • Relatório dos dados de um cliente específico.
+ * • Quais são os bilhetes de um cliente nos últimos 12 meses? Ele ganhou uma passagem grátis?
+ * • Quem é o cliente com mais pontos acumulados nos últimos 12 meses?
+ * • Quais são os voos para uma cidade, em uma data, com mais de 100 reservas?
+ * • Qual o total valor arrecadado com bilhetes em todo o período de funcionamento da empresa,
+ * podendo ainda filtrar o valor por um mês escolhido?
+ *  * Para a apresentação do protótipo ao cliente, espera-se que o sistema carregue e salve dados em
+ * quantidade suficiente para que a validação dos requisitos acima possa ser demonstrada com segurança.
+ * A finalização formal da sprint 3 está prevista para 19/11. A implementação dos demais requisitos será
+ * observada ao longo da sprint 4 e a apresentação do protótipo está agendada para 05/12, com a
+ * possibilidade de ajustes finais até 09/12. 
+ */
 
 import java.beans.JavaBean;
 import java.util.Date;
@@ -52,11 +83,12 @@ public class App {
     /**
      * Método para "limpar" tela console
      */
-    public static void clear(){ 
+    public static void clear() {
 
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
+
     public static void menu() {
         System.out.println(" ------------------------- ");
         System.out.println("|   SELECIONE UMA OPÇÃO:  |");
@@ -72,7 +104,8 @@ public class App {
         System.out.println(" ------------------------- ");
 
         System.out.print("\nOpção: ");
-    } 
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner key = new Scanner(System.in);
         Trecho trecho = new Trecho();
@@ -80,17 +113,16 @@ public class App {
         Bilhete bilhete = new Bilhete();
         clear();
         int opcao = 0;
-        
-        do{
+
+        do {
             menu();
-            opcao = key.nextInt();
-            switch(opcao){
+            opcao = Integer.parseInt(key.nextLine());
+            switch (opcao) {
                 case 1:
-                    String origem = "", destino = "", id = ""; 
+                    String origem = "", destino = "", id = "";
                     clear();
                     System.out.println();
-                    System.out.print("Local de Origem: ");               
-                    origem = key.nextLine();//Não sei porque não está pedindo para inserir o valor só com 1 por isso coloquei 2
+                    System.out.print("Local de Origem: ");
                     origem = key.nextLine();
 
                     System.out.print("Local de Destino: ");
@@ -99,26 +131,28 @@ public class App {
                     System.out.print("Local de Id: ");
                     id = key.nextLine();
 
-                    
                     trecho.addTrecho(origem, destino, id);
                     clear();
-                    
+
                     System.out.println("Intinerário inserido com sucesso!");
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
                     opcao = 0;
-                break;
-    
+                    break;
+
                 case 2:
                     clear();
                     System.out.println("Informe a data do voo");
-                    System.out.print("Ano: ");
-                    int ano = key.nextInt(); 
-                    System.out.print("Mês: ");
-                    int mes = key.nextInt(); 
                     System.out.print("Dia: ");
-                    int dia = key.nextInt(); 
+                    int dia = Integer.parseInt(key.nextLine());
+                    System.out.print("Mês: ");
+                    int mes = Integer.parseInt(key.nextLine());
+                    System.out.print("Ano: ");
+                    int ano = Integer.parseInt(key.nextLine());
+
+                    // Criar método para validar data
+
                     Date data = new Date(ano, mes, dia);
                     voo.addTrecho(trecho);
                     voo.addData(data);
@@ -128,19 +162,18 @@ public class App {
 
                     clear();
                     opcao = 0;
-                break;
+                    break;
 
-                case 3:                    
+                case 3:
                     clear();
                     bilhete.addVoo(voo);
                     System.out.println(bilhete.showVoo());
                     System.out.println("\n\nPressione enter para continuar: ");
                     String aux = key.nextLine();
-                    String aux1 = key.nextLine();
 
                     clear();
                     opcao = 0;
-                break;
+                    break;
 
                 case 4:
                     clear();
@@ -149,7 +182,7 @@ public class App {
 
                     clear();
                     opcao = 0;
-                break;
+                    break;
 
                 case 5:
                     clear();
@@ -158,7 +191,7 @@ public class App {
 
                     clear();
                     opcao = 0;
-                break;
+                    break;
 
                 case 6:
                     clear();
@@ -169,20 +202,20 @@ public class App {
                     break;
 
                 default:
-                    
+
                     clear();
                     System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 6.");
                     System.out.println("\n\n\n");
                     opcao = 0;
-                break;
+                    break;
             }
-        
-        }while(opcao >= 0);
+
+        } while (opcao >= 0);
         /**
          * teste funcionalidade das classe
          * 
          */
-        
+
         // Voo voo = new Voo();
         // Date data = new Date(122, 04, 1);
         // voo.addTrecho(trecho);
