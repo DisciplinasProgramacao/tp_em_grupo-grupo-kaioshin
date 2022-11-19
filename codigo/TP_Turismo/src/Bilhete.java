@@ -33,12 +33,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bilhete implements IPromocao {
+public class Bilhete implements IPromocao, IPontos {
     
     private String id = "263478";
     private List<Voo> voos = new ArrayList<Voo>();
     private double valorVooMaisCaro = 0;
-    private double valorDoBilhete = 0;
+    private double valorDoBilhete =  0;
     private int pontos = 0;
 
     /**
@@ -111,8 +111,8 @@ public class Bilhete implements IPromocao {
      * Este método calcula os pontos gerado a partir do valor do bilhete,
      * seguindo a regra que a cada R$500,00 gera 500 pontos; 
      */
-    private void calculatePoints() {
-        int cont = 0;
+    @Override
+    public void calculatePoints() {
         double aux = this.valorDoBilhete;
 
         while(aux >= 500) {
@@ -131,6 +131,10 @@ public class Bilhete implements IPromocao {
     public void ticketFaithfulness() {
         this.valorDoBilhete = 0;
         this.pontos = 0;
+    }
+
+    public double getValue() {
+        return this.valorDoBilhete;
     }
 
 }

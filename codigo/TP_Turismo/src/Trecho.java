@@ -1,16 +1,16 @@
 public class Trecho {
     
-    private String id;
+    private int id;
     private String origem;
     private String destino;
 
-    public void addTrecho(String origem, String destino, String idTrecho){
+    public void addTrecho(String origem, String destino, int idTrecho){
         this.origem = origem;
         this.destino = destino;
         this.id = idTrecho;
     }
 
-    public String idTrecho() {
+    public int idTrecho() {
         return this.id;
     }
 

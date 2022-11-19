@@ -1,13 +1,12 @@
 
-//Sprint 2
+//                                  Sprint 2
 /**
  * Na fase 2, começará o processo de formação de bilhetes para venda, com suas
  * respectivas regras.
  * Descobrimos vários requisitos nas reuniões com os clientes:
  * 
  * • Um bilhete pode conter reservas para diversos voos. Por exemplo, um bilhete
- * de viagem de
- * Belo Horizonte para Paris pode ser formado pelos trechos Belo
+ * de viagem de Belo Horizonte para Paris pode ser formado pelos trechos Belo
  * Horizonte/Barcelona e
  * Barcelona/Paris.
  * 
@@ -44,10 +43,12 @@
  *      24/10. As etapas
  *      posteriores estão previstas para 27/11 e 15/12.
  */
-//Sprint 3
+
+//                                      Sprint 3
 /**
- * Na fase 3 será implementado o processo de compra efetiva dos bilhetes pelos clientes. Um cliente
- * precisa ter todas as suas compras armazenadas por ordem cronológica de data de voo. As compras
+ * Na fase 3 será implementado o processo de compra efetiva dos bilhetes pelos clientes.
+ * 
+ *  Um cliente precisa ter todas as suas compras armazenadas por ordem cronológica de data de voo. As compras
  * obedecem às regras anteriores de venda de bilhetes, as quais são complementadas por estas:
  * • A cada 10.500 pontos acumulados em um período de 12 meses, o cliente ganha o próximo
  * bilhete de graça. Lembre-se que este bilhete não dá direito a pontos.
@@ -56,7 +57,8 @@
  * Temos dois tipos de aceleradores: prata, com multiplicador 1.25 e preto, com multiplicador 1.5
  * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
  */
-//Sprint 4
+
+//                                      Sprint 4
 /**
  * A fase 4 é definida pela finalização dos testes e implementação do protótipo para a empresa cliente.
  * Este protótipo precisa ter as funcionalidades básicas de cadastro de cliente, localização de voos e
@@ -75,11 +77,16 @@
  */
 
 import java.beans.JavaBean;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class App {
+    static Random aleat = new Random(42);
+    static List<Cliente> clientes = new ArrayList<Cliente>();
     /**
      * Método para "limpar" tela console
      */
@@ -93,8 +100,8 @@ public class App {
         System.out.println(" ------------------------- ");
         System.out.println("|   SELECIONE UMA OPÇÃO:  |");
         System.out.println(" ========================= ");
-        System.out.println("|1º - Informar Trecho     |");
-        System.out.println("|2º - Adicionar Voo       |");
+        System.out.println("|1º - Comprar Bilhete     |");
+        System.out.println("|2º -                     |");
         System.out.println("|3º -                     |");
         System.out.println("|4º -                     |");
         System.out.println("|5º -                     |");
@@ -111,26 +118,49 @@ public class App {
         Trecho trecho = new Trecho();
         Voo voo = new Voo();
         Bilhete bilhete = new Bilhete();
+        Cliente cliente = new Cliente();
+
         clear();
-        int opcao = 0;
+        int opicao = 0;
 
         do {
             menu();
-            opcao = Integer.parseInt(key.nextLine());
-            switch (opcao) {
+            try {
+                opicao = Integer.parseInt(key.nextLine());
+            }catch(Exception e) {
+                opicao = -1;
+            }
+ 
+            switch (opicao) {
                 case 1:
-                    String origem = "", destino = "", id = "";
+                    String origem = "", destino = "";
+                    int id;
                     clear();
+
+                    System.out.println("Qual seu nome?");
+                    String nome = key.nextLine();
+
+                    int posicao = -1;
+
+                    for (Cliente c : clientes) {
+                        if(c.getNome().equals(nome))
+                            posicao = clientes.indexOf(c);
+                    }
+                    if(posicao == -1) {
+                        cliente.setNome(nome);
+                        clientes.add(cliente);
+                        posicao = 0;
+                    }                    
+                    
                     System.out.println();
+                    System.out.println("Informe o trecho\n");
                     System.out.print("Local de Origem: ");
                     origem = key.nextLine();
 
                     System.out.print("Local de Destino: ");
                     destino = key.nextLine();
-
-                    System.out.print("Local de Id: ");
-                    id = key.nextLine();
-
+                    id = aleat.nextInt(999999999);
+                    
                     trecho.addTrecho(origem, destino, id);
                     clear();
 
@@ -138,41 +168,48 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    opcao = 0;
+                    System.out.println("Informe a data do voo");
+                    String auxData = key.nextLine();
+
+                    // Criar método para validar data
+
+                    Date data = new Date(auxData);                    
+                    voo.addTrecho(trecho);
+                    voo.addData(data);
+                    bilhete.addVoo(voo);
+                    Compra c = new Compra();
+                    c.buyToTicket(bilhete, null);
+                    clientes.get(posicao).addListCompras(c);
+
+                    
+                    System.out.println("\n\nVoo inserido com sucesso!");
+                    TimeUnit.SECONDS.sleep(2);
+                    clear();
+
+                    System.out.println(trecho.toString());
+                    System.out.println(voo.toString());
+                    System.out.println("O valor do bilhete é: R$" + bilhete.getValue());
+
+                    System.out.println("\n\nPressione enter para continuar: ");
+                    String aux = key.nextLine();
+
+                    
+                    clear();
                     break;
 
                 case 2:
                     clear();
-                    System.out.println("Informe a data do voo");
-                    System.out.print("Dia: ");
-                    int dia = Integer.parseInt(key.nextLine());
-                    System.out.print("Mês: ");
-                    int mes = Integer.parseInt(key.nextLine());
-                    System.out.print("Ano: ");
-                    int ano = Integer.parseInt(key.nextLine());
+                    
 
-                    // Criar método para validar data
-
-                    Date data = new Date(ano, mes, dia);
-                    voo.addTrecho(trecho);
-                    voo.addData(data);
-
-                    System.out.println("\n\nVoo inserido com sucesso!");
-                    TimeUnit.SECONDS.sleep(2);
-
-                    clear();
-                    opcao = 0;
+                    
+                    opicao = 0;
                     break;
 
                 case 3:
                     clear();
-                    bilhete.addVoo(voo);
-                    System.out.println(bilhete.showVoo());
-                    System.out.println("\n\nPressione enter para continuar: ");
-                    String aux = key.nextLine();
 
-                    clear();
-                    opcao = 0;
+                    
+                    opicao = 0;
                     break;
 
                 case 4:
@@ -181,7 +218,7 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    opcao = 0;
+                    opicao = 0;
                     break;
 
                 case 5:
@@ -190,13 +227,13 @@ public class App {
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    opcao = 0;
+                    opicao = 0;
                     break;
 
                 case 6:
                     clear();
                     System.out.println("Obrigado e volte sempre!");
-                    opcao = -1;
+                    opicao = -1;
                     TimeUnit.SECONDS.sleep(2);
                     clear();
                     break;
@@ -206,11 +243,11 @@ public class App {
                     clear();
                     System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 6.");
                     System.out.println("\n\n\n");
-                    opcao = 0;
+                    opicao = 0;
                     break;
             }
 
-        } while (opcao >= 0);
+        } while (opicao >= 0);
         /**
          * teste funcionalidade das classe
          * 
