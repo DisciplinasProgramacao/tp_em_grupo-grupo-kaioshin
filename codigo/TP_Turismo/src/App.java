@@ -177,6 +177,10 @@ public class App {
                     voo.addTrecho(trecho);
                     voo.addData(data);
                     bilhete.addVoo(voo);
+                    System.out.print("Informe a data da compra: ");
+                    auxData = key.nextLine();
+                    Date dataAux = new Date(auxData);
+                   
                     Compra c = new Compra();
                     c.buyToTicket(bilhete, null);
                     clientes.get(posicao).addListCompras(c);

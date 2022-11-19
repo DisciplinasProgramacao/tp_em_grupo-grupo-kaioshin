@@ -4,8 +4,12 @@ public class Compra {
     private Date dataDaCompra;
     private Bilhete bilhete = new Bilhete();
     
-    public void buyToTicket(Bilhete bilhete, Date dataDaCompra) {
+    public void buyToTicket(Bilhete bilhete, Date data) {
         this.bilhete = bilhete;
-        this.dataDaCompra = dataDaCompra;
+        this.dataDaCompra = data;
+    }
+
+    public double getValue() {
+        return bilhete.getValue();
     }
 }

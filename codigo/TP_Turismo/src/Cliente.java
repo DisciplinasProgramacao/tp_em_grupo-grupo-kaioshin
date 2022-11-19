@@ -15,22 +15,32 @@ import java.util.*;
  * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
  */
 public class Cliente implements IPontos{
-    private ArrayList compras = new ArrayList<Compra>();
+    private static int ID = 0;
+    private ArrayList<Compra> compras = new ArrayList<Compra>();
     private int pontos = 0;
     private String nome;
     
-
+    public Cliente() {
+        Cliente.ID = ++Cliente.ID;
+    }
 
     @Override
     public void calculatePoints() {
-        
+        double aux = compras.stream()
+                            .mapToDouble(p -> p.getValue())
+                            .sum();
+
+        while(aux >= 500) {
+            aux -= 500;
+            this.pontos += 500;
+        } 
     }
     
-    // public void showShopping() {
-    //     compras.stream()
-    //                    .sorted()
-    //                    .forEach(p-> System.out.println(p.toString()));
-    // }
+    public void showShopping() {
+        compras.stream()
+            .sorted()
+            .forEach(p-> System.out.println(p.toString()));
+    }
     
     public void addListCompras(Compra c) {
         this.compras.add(c);
