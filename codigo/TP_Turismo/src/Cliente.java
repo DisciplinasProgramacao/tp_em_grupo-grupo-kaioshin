@@ -17,7 +17,7 @@ import java.util.*;
 public class Cliente implements IPontos{
     private static int ID = 0;
     private ArrayList<Compra> compras = new ArrayList<Compra>();
-    private int pontos = 0;
+    private double pontos = 0;
     private String nome;
     
     public Cliente() {
@@ -25,15 +25,11 @@ public class Cliente implements IPontos{
     }
 
     @Override
-    public void calculatePoints() {
-        double aux = compras.stream()
+    public double calculatePoints() {
+       double soma = compras.stream()
                             .mapToDouble(p -> p.getValue())
                             .sum();
-
-        while(aux >= 500) {
-            aux -= 500;
-            this.pontos += 500;
-        } 
+        return this.pontos = soma/500;
     }
     
     public void showShopping() {
@@ -45,6 +41,11 @@ public class Cliente implements IPontos{
     public void addListCompras(Compra c) {
         this.compras.add(c);
         //ordenar por data
+    }
+
+    @Override
+    public void pointsAccelerator() {
+        
     }
 
     public void setNome(String nome) {

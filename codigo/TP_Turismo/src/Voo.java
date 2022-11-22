@@ -36,13 +36,14 @@ public class Voo {
         return aux;
     }
 
-    public void addData(Date data) {
-        this.data = data;
+    public void addData(String data) {
+        this.data = new Date(data);
     }
     
     public String toString() {
         String s;
-        StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + data + " || ");
+		
+        StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + this.data.toString() + " || ");
         str.append(trecho.toString());
         s = str.toString();
         return s;

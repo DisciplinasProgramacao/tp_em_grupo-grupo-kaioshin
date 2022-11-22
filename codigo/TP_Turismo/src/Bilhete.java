@@ -39,7 +39,7 @@ public class Bilhete implements IPromocao, IPontos {
     private List<Voo> voos = new ArrayList<Voo>();
     private double valorVooMaisCaro = 0;
     private double valorDoBilhete =  0;
-    private int pontos = 0;
+    private double pontos = 0.0;
 
     /**
      * Este método adiciona um registro de voo no bilhete
@@ -107,18 +107,17 @@ public class Bilhete implements IPromocao, IPontos {
             this.valorDoBilhete = (double)aux + (10/100 * aux);
     }
 
+    public void pointsAccelerator() {
+
+    }
+
     /**
      * Este método calcula os pontos gerado a partir do valor do bilhete,
      * seguindo a regra que a cada R$500,00 gera 500 pontos; 
      */
     @Override
-    public void calculatePoints() {
-        double aux = this.valorDoBilhete;
-
-        while(aux >= 500) {
-            aux -= 500;
-            this.pontos += 500;
-        }        
+    public double calculatePoints() {
+         return this.pontos = (double)this.valorDoBilhete/500;
     }
 
     @Override
@@ -130,8 +129,10 @@ public class Bilhete implements IPromocao, IPontos {
     @Override
     public void ticketFaithfulness() {
         this.valorDoBilhete = 0;
-        this.pontos = 0;
+        this.pontos = 0.0;
     }
+
+
 
     public double getValue() {
         return this.valorDoBilhete;

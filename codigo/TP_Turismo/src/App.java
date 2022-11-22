@@ -1,4 +1,3 @@
-
 //                                  Sprint 2
 /**
  * Na fase 2, começará o processo de formação de bilhetes para venda, com suas
@@ -83,6 +82,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.spi.TimeZoneNameProvider;
 
 public class App {
     static Random aleat = new Random(42);
@@ -119,6 +119,7 @@ public class App {
         Voo voo = new Voo();
         Bilhete bilhete = new Bilhete();
         Cliente cliente = new Cliente();
+        ArrayList<String> conexoes = new ArrayList<String>();
 
         clear();
         int opicao = 0;
@@ -160,29 +161,62 @@ public class App {
                     System.out.print("Local de Destino: ");
                     destino = key.nextLine();
                     id = aleat.nextInt(999999999);
+
+                    clear();
                     
-                    trecho.addTrecho(origem, destino, id);
+                    System.out.print("1 - A viagem é direta\n2 - Há conexão no voo\n\nOpição: ");
+                    int auxOption = Integer.parseInt(key.nextLine());
+                    do{
+                        if(auxOption > 2 || auxOption < 1){
+                            System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 2.");
+                        }
+                        if(auxOption == 2) {
+                            String aux;
+                            System.out.print("A viagem será de " + origem + " para: ");
+                            aux = key.nextLine();
+
+                            while(!aux.equals(destino)) {
+                                conexoes.add(aux);
+                                System.out.print("De " + aux + " para: ");
+                                aux = key.nextLine();
+                            }
+                        } 
+                    } while(auxOption != 2 && auxOption != 1);
+
+                    trecho.addTrecho(origem, destino, id, conexoes);
                     clear();
 
                     System.out.println("Intinerário inserido com sucesso!");
                     TimeUnit.SECONDS.sleep(2);
 
                     clear();
-                    System.out.println("Informe a data do voo");
-                    String auxData = key.nextLine();
+                    System.out.print("Informe a data do voo: ");
+                    String data = key.nextLine();
 
                     // Criar método para validar data
-
-                    Date data = new Date(auxData);                    
+                   
                     voo.addTrecho(trecho);
                     voo.addData(data);
                     bilhete.addVoo(voo);
                     System.out.print("Informe a data da compra: ");
-                    auxData = key.nextLine();
-                    Date dataAux = new Date(auxData);
-                   
+                    String dataAux = key.nextLine();
+                    
+                    clear();
+
+                    System.out.print("Desejá adiquirir um acelerador de pontos?\n1 - Sim\n2 - Não\n\nOpição: ");
+                    int acelerador = Integer.parseInt(key.nextLine());
+
+                    clear();
+                    if(acelerador == 1){
+                        System.out.println("Qual acelerador de pontos você deseja?");
+                        System.out.print("1 - Prata x1.25 - R$12,99 p/mês \n2 - Preto x1.50 - R$19,99 p/mês\n\nOpição: ");
+                        acelerador = Integer.parseInt(key.nextLine());
+                    } else {
+                        acelerador = -1;
+                    }
+
                     Compra c = new Compra();
-                    c.buyToTicket(bilhete, null);
+                    c.buyToTicket(bilhete, dataAux);
                     clientes.get(posicao).addListCompras(c);
 
                     

@@ -1,3 +1,4 @@
 public interface IPontos {
-    public void calculatePoints();
+    public double calculatePoints();
+    public void pointsAccelerator();
 }
