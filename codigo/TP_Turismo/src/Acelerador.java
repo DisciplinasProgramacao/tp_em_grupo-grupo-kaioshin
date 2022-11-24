@@ -1,22 +1,37 @@
-/**
- * Temos dois tipos de aceleradores: prata, com multiplicador 1.25 e preto, com multiplicador 1.5
- * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
- */
-public abstract class Acelerador {
-    protected boolean ativo;
+public enum Acelerador {
+    PRATA(12.99, "Prata", true),
+    PRETO(19.99, "Preto", true),
+    PADRAO(0.0, "Não possui Acelerador", false);
 
-    /**
-     * Multiplica os pontos de acordo com a regra do plano contratado Prata ou Preto
-     */
-    public abstract double multiplicator(double pontos);
+    double custo;
+    String descricao;
+    boolean ativo;
 
-    /**
-     * Torna o plano do acelerador ativo
-     */
-    public abstract void activate();
+    Acelerador(double custo, String desc, boolean ativo) {
+        this.custo = custo;
+        this.descricao = desc;
+        this.ativo = ativo;
+    }
 
-    /**
-     * Torna o plano do acelerador inativo
-     */
-    public abstract void cancelAcelerator();
+    public double multiplicator(double pontos) {
+        return pontos * 1.25;
+    }
+
+    public void activate() {
+        this.ativo = true;
+    }
+
+    public void cancelAcelerator() {
+        this.ativo = false;
+    }
+
+    double getCusto(){
+        return this.custo;
+    }
+
+    @Override
+    public String toString(){
+        return this.descricao+ " - R$ "+this.custo;
+    }
+    
 }

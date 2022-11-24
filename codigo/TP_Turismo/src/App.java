@@ -122,7 +122,6 @@ public class App {
         }
     }
     
-
     public static void main(String[] args) throws Exception {
         Scanner key = new Scanner(System.in);
         Trecho trecho = new Trecho();

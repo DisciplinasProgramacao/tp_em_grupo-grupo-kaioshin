@@ -19,11 +19,24 @@ public class Cliente implements IPontos{
     private ArrayList<Compra> compras = new ArrayList<Compra>();
     private double pontos = 0;
     private String nome;
-    
+    private Acelerador acelerador = Acelerador.PADRAO;
+
     public Cliente() {
         Cliente.ID = ++Cliente.ID;
     }
+    /**
+     * Recebe como parametro uma String com a descrição do acelerador
+     * e altera para o tipo escolhido pelo cliente
+     * @param desc String
+     */
+    public void changeAcelerator(String desc) {
+        this.acelerador = Acelerador.PADRAO;
+        this.acelerador = desc.equals("Prata") ?  Acelerador.PRATA : Acelerador.PRETO;
+    }
 
+    /**
+     * Calcula os pontos adiquiridos até o momento
+     */
     @Override
     public double calculatePoints() {
        double soma = compras.stream()
@@ -32,20 +45,31 @@ public class Cliente implements IPontos{
         return this.pontos = soma/500;
     }
     
+
     public void showShopping() {
         compras.stream()
             .sorted()
             .forEach(p-> System.out.println(p.toString()));
     }
-    
+    /**
+     * Adiciona na lista de compras 
+     * @param c
+     */
     public void addListCompras(Compra c) {
         this.compras.add(c);
         //ordenar por data
     }
 
-    @Override
-    public void pointsAccelerator() {
-        
+    /**
+     * Cria o acelerador de pontos do cliente
+     * @param desc
+     */
+    public void pointsAccelerator(String desc) {
+        try{
+            this.acelerador = desc.equals("Prata") ?  Acelerador.PRATA : Acelerador.PRETO;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void setNome(String nome) {
