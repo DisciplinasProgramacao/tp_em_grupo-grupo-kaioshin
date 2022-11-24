@@ -22,7 +22,7 @@ import java.util.Date;
 public class Voo {
     private static String ID_VOO = "7845";
     private Trecho trecho;
-    private Date data;
+    private Data data;
     private double baseValue;
 
     public void addTrecho(Trecho trecho) {
@@ -36,14 +36,14 @@ public class Voo {
         return aux;
     }
 
-    public void addData(String data) {
-        this.data = new Date(data);
+    public void addData(int[] data) {
+        this.data = new Data(data[0],data[1],data[2]);
     }
     
     public String toString() {
         String s;
 		
-        StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + this.data.toString() + " || ");
+        StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + this.data.dataFormatada() + " || ");
         str.append(trecho.toString());
         s = str.toString();
         return s;

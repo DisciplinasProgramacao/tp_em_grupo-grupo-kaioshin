@@ -1,19 +1,19 @@
 import java.util.Date;
 
 public class Compra {
-    private Date dataDaCompra;
+    private Data dataDaCompra;
     private Bilhete bilhete = new Bilhete();
     
-    public void buyToTicket(Bilhete bilhete, String data) {
+    public void buyToTicket(Bilhete bilhete, int[] data) {
         this.bilhete = bilhete;
-        this.dataDaCompra = new Date(data);
+        this.dataDaCompra = new Data(data[0],data[1],data[2]);
     }
 
     public double getValue() {
         return bilhete.getValue();
     }
 
-    public Date getData() {
+    public Data getData() {
         return this.dataDaCompra;
     }
 }

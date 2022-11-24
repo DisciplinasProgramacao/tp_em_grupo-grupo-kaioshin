@@ -74,15 +74,12 @@
  * observada ao longo da sprint 4 e a apresentação do protótipo está agendada para 05/12, com a
  * possibilidade de ajustes finais até 09/12. 
  */
-
-import java.beans.JavaBean;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.util.spi.TimeZoneNameProvider;
+
 
 public class App {
     static Random aleat = new Random(42);
@@ -97,21 +94,34 @@ public class App {
     }
 
     public static void menu() {
-        System.out.println(" ------------------------- ");
-        System.out.println("|   SELECIONE UMA OPÇÃO:  |");
-        System.out.println(" ========================= ");
-        System.out.println("|1º - Comprar Bilhete     |");
-        System.out.println("|2º -                     |");
-        System.out.println("|3º -                     |");
-        System.out.println("|4º -                     |");
-        System.out.println("|5º -                     |");
-        System.out.println("|6º - Sair                |");
-        System.out.println("|                         |");
-        System.out.println("|                         |");
-        System.out.println(" ------------------------- ");
+        System.out.println(" -------------------------- ");
+        System.out.println("|   SELECIONE UMA OPÇÃO:   |");
+        System.out.println(" ========================== ");
+        System.out.println("|1º - Comprar Bilhete      |");
+        System.out.println("|2º - Acelerador de Pontos |");
+        System.out.println("|3º -                      |");
+        System.out.println("|4º -                      |");
+        System.out.println("|5º -                      |");
+        System.out.println("|6º - Sair                 |");
+        System.out.println("|                          |");
+        System.out.println("|                          |");
+        System.out.println(" -------------------------- ");
 
         System.out.print("\nOpção: ");
     }
+
+    public static int[] formatDate(String DataText) {
+        if(DataText.contains("/")){
+            String[] aux = DataText.split("/");
+            int[] auxI = {Integer.parseInt(aux[0]), Integer.parseInt(aux[1]),Integer.parseInt(aux[2])};
+            return auxI;
+        } else {
+            String[] aux = DataText.split("-");
+            int[] auxI = {Integer.parseInt(aux[0]), Integer.parseInt(aux[1]),Integer.parseInt(aux[2])};
+            return auxI;
+        }
+    }
+    
 
     public static void main(String[] args) throws Exception {
         Scanner key = new Scanner(System.in);
@@ -125,6 +135,7 @@ public class App {
         int opicao = 0;
 
         do {
+            clear();
             menu();
             try {
                 opicao = Integer.parseInt(key.nextLine());
@@ -191,7 +202,7 @@ public class App {
 
                     clear();
                     System.out.print("Informe a data do voo: ");
-                    String data = key.nextLine();
+                    int[] data = formatDate(key.nextLine());
 
                     // Criar método para validar data
                    
@@ -199,21 +210,10 @@ public class App {
                     voo.addData(data);
                     bilhete.addVoo(voo);
                     System.out.print("Informe a data da compra: ");
-                    String dataAux = key.nextLine();
+                    int[] dataAux = formatDate(key.nextLine());
                     
                     clear();
 
-                    System.out.print("Desejá adiquirir um acelerador de pontos?\n1 - Sim\n2 - Não\n\nOpição: ");
-                    int acelerador = Integer.parseInt(key.nextLine());
-
-                    clear();
-                    if(acelerador == 1){
-                        System.out.println("Qual acelerador de pontos você deseja?");
-                        System.out.print("1 - Prata x1.25 - R$12,99 p/mês \n2 - Preto x1.50 - R$19,99 p/mês\n\nOpição: ");
-                        acelerador = Integer.parseInt(key.nextLine());
-                    } else {
-                        acelerador = -1;
-                    }
 
                     Compra c = new Compra();
                     c.buyToTicket(bilhete, dataAux);
@@ -231,16 +231,21 @@ public class App {
                     System.out.println("\n\nPressione enter para continuar: ");
                     String aux = key.nextLine();
 
-                    
-                    clear();
                     break;
 
                 case 2:
                     clear();
-                    
-
+                        System.out.println(" --------------------------------- ");
+                        System.out.println("|      SELECIONE UMA OPÇÃO:       |");
+                        System.out.println(" ================================= ");
+                        System.out.println("|1º - Prata x1.25 - R$12,99 p/mês |");
+                        System.out.println("|2º - Preto x1.50 - R$19,99 p/mês |");
+                        System.out.println(" --------------------------------- ");
+                        System.out.print("\n\nOpição: ");
+                        int acelerador = Integer.parseInt(key.nextLine());
                     
                     opicao = 0;
+                    
                     break;
 
                 case 3:
