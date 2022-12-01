@@ -31,6 +31,9 @@ public class Cliente {
     
     //calcular os pontos
 
+    public void disabledAcelerator() {
+        this.acelerador.disabled();
+    }
 
     /**
      * Recebe como parametro uma String com a descrição do acelerador
@@ -103,6 +106,9 @@ public class Cliente {
             // System.out.println(this.compras.stream()
             // .filter(c -> c.getData()) + "\n\n");
         
+    }
+    public String getTypeAcelerator() {
+        return this.acelerador.descricao;
     }
     public ArrayList getCompras() {
         return this.compras;
