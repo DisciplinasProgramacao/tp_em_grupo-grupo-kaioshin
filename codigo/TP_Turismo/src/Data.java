@@ -24,7 +24,27 @@ import java.io.Serializable;
  * SOFTWARE.
  */
 
-public class Data implements Serializable{
+public class Data implements Serializable, Comparable<Data>{
+
+    public int compareTo(Data a) {
+        if(a.ano > this.ano) {
+            return -1;
+        } else if(a.ano == this.ano) {
+            if(a.mes > this.mes) {
+                return -1;
+            } else if (a.mes == this.mes) {
+                if(a.dia > this.dia){
+                    return -1;
+                } else if (a.dia == this.dia){
+                    return 0;
+                }
+                return 1;
+            }
+            return 1;
+        } else {
+            return 1;
+        }         
+    }
     static final long serialVersionUID = 20221L;    
 
     //#region atributos
@@ -51,8 +71,6 @@ public class Data implements Serializable{
         }
 
     }
-    
-
 
     /**
      * Construtor completo: recebe dia, mês e ano e valida a data. Datas inválidas vão para 01/01/1990

@@ -23,7 +23,8 @@ public class Voo {
     private static String ID_VOO = "7845";
     private Trecho trecho;
     private Data data;
-    private double baseValue;
+    private double baseValue = 249.99;
+    private double vooValue = this.baseValue * trecho.getQtdTrechos()-1;
 
     public void addTrecho(Trecho trecho) {
         this.trecho = trecho;
@@ -47,6 +48,10 @@ public class Voo {
         str.append(trecho.toString());
         s = str.toString();
         return s;
+    }
+    
+    public double getVooValue() {
+        return vooValue;
     }
 
     public void setBaseValue(double baseValue) {

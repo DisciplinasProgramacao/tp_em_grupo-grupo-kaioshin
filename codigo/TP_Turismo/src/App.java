@@ -35,7 +35,7 @@
  *      que já foram fornecidos, haverá um bônus no pagamento do projeto.
  *      Neste momento, portanto, seu grupo precisa:
  * a) adaptar o diagrama de classes original para os novos requisitos; UML que
- *    modele corretamente o que foi descrito;
+ *      modele corretamente o que foi descrito;
  * b) implementar as regras para os novos requisitos;
  * c) criar um protótipo de sistema para que os futuros clientes possam usar e testar o sistema.
  *      Esta primeira etapa do trabalho está prevista para terminar, no máximo, em
@@ -68,12 +68,14 @@
  * • Quais são os voos para uma cidade, em uma data, com mais de 100 reservas?
  * • Qual o total valor arrecadado com bilhetes em todo o período de funcionamento da empresa,
  * podendo ainda filtrar o valor por um mês escolhido?
+ * 
  *  * Para a apresentação do protótipo ao cliente, espera-se que o sistema carregue e salve dados em
  * quantidade suficiente para que a validação dos requisitos acima possa ser demonstrada com segurança.
  * A finalização formal da sprint 3 está prevista para 19/11. A implementação dos demais requisitos será
  * observada ao longo da sprint 4 e a apresentação do protótipo está agendada para 05/12, com a
  * possibilidade de ajustes finais até 09/12. 
  */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -82,8 +84,13 @@ import java.util.concurrent.TimeUnit;
 
 
 public class App {
+    static int opicao = 0;
+    static int posicaoNaLista = -1;
+    static String nome, cpf;
+    static Scanner key = new Scanner(System.in);
     static Random aleat = new Random(42);
-    static List<Cliente> clientes = new ArrayList<Cliente>();
+    static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //Cliente cadastrado no sistema
+    static Cliente cliente;
     /**
      * Método para "limpar" tela console
      */
@@ -93,6 +100,37 @@ public class App {
         System.out.flush();
     }
 
+    public static int getPosition(String cpf) {
+        for (int i=0; i<=clientes.size(); i++) {
+            try{
+                if(clientes.get(i).getCpf().equals(cpf)){
+                    return i;
+                }
+            }catch(Exception e) {
+                return -1;
+            }
+            
+        }
+
+        return -1;
+    }
+
+    public static void relatorio(String cpf) {
+        clientes.get(getPosition(cpf)).relatorio();
+    }
+
+    // public static void totalArrecadado() {
+    //     clientes.stream()
+    //             .mapToDouble(
+    //                 c->c.getCompras()
+    //                 .stream()
+    //                 .mapToDouble(b->b.getValue())
+    //             )
+    //             .sum();
+                
+                
+    // }
+    
     public static void menu() {
         System.out.println(" -------------------------- ");
         System.out.println("|   SELECIONE UMA OPÇÃO:   |");
@@ -101,14 +139,70 @@ public class App {
         System.out.println("|2º - Acelerador de Pontos |");
         System.out.println("|3º -                      |");
         System.out.println("|4º -                      |");
-        System.out.println("|5º -                      |");
+        System.out.println("|5º - Relatório Cliente    |");
         System.out.println("|6º - Sair                 |");
-        System.out.println("|                          |");
-        System.out.println("|                          |");
         System.out.println(" -------------------------- ");
 
         System.out.print("\nOpção: ");
     }
+
+    public static void cadastrar() {
+        System.out.println(" -------------------------- ");
+        System.out.println("|   SELECIONE UMA OPÇÃO:   |");
+        System.out.println(" ========================== ");
+        System.out.println("|1º - Login                |");
+        System.out.println("|2º - Cadastrar            |");
+        System.out.println(" -------------------------- ");
+        
+        System.out.print("\n\nOpição: ");
+
+        try {
+            opicao = Integer.parseInt(key.nextLine());
+        }catch(Exception e) {
+            opicao = -1;
+        }
+
+        do {
+            clear();
+            String cpf;
+            switch(opicao) {
+                case 1:
+                    System.out.print("Informe por gentileza o CPF cadastrado: ");
+                    cpf = key.nextLine();
+                    int aux1 = getPosition(cpf);
+                        if(aux1 >= 0){
+                            posicaoNaLista = getPosition(cpf);
+                            System.out.println("Bem Vindo " + clientes.get(posicaoNaLista).getNome());
+                            opicao = -1;
+                        } else {
+                            System.out.println("Não foi identificado cadastro para o CPF " + cpf + "! Realize o cadastro e tente novamente.");
+                            opicao = 2;
+                        }
+                break;
+    
+                case 2:
+                        System.out.print("Informe o Nome: ");
+                        String nome = key.nextLine();
+                        System.out.print("\nInforme o CPF: ");
+                         cpf = key.nextLine();
+
+                        cliente = new Cliente(nome, cpf);
+                        clientes.add(cliente);
+                        opicao = 1;
+                    break;
+    
+                default:
+                    
+                    System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 2.");
+                    System.out.println("\n\n\n");
+                    opicao = 0;
+                    break;
+            }
+        } while (opicao >= 0);
+        
+        
+    }
+
 
     public static int[] formatDate(String DataText) {
         if(DataText.contains("/")){
@@ -121,17 +215,12 @@ public class App {
             return auxI;
         }
     }
+
     
     public static void main(String[] args) throws Exception {
-        Scanner key = new Scanner(System.in);
-        Trecho trecho = new Trecho();
-        Voo voo = new Voo();
-        Bilhete bilhete = new Bilhete();
-        Cliente cliente = new Cliente();
-        ArrayList<String> conexoes = new ArrayList<String>();
-
         clear();
-        int opicao = 0;
+        opicao = 0;
+        cadastrar();
 
         do {
             clear();
@@ -141,16 +230,36 @@ public class App {
             }catch(Exception e) {
                 opicao = -1;
             }
- 
+            clear();
+
             switch (opicao) {
                 case 1:
+                    ArrayList<String> conexoes = new ArrayList<String>();
+                    System.out.println("Qual bilhete deseja?\n\n 1- Bilhete Comum\n2- Bilhete com disconto\n3- Bilhete gratis usando os pontos");
+                    int num = Integer.parseInt(key.nextLine());
+                    Bilhete bilhete = null;
+
+                    switch(num) {
+                        case 1:
+                            bilhete = new BilheteComum();
+                        break;
+            
+                        case 2: 
+                            bilhete = new BilhetePromocional();
+                        break;
+            
+                        case 3:
+                        //precisa checar os pontos
+                            bilhete = new BilheteFidelidade();
+                        break;
+                    }
+                    
+                    Trecho trecho = new Trecho();
+                    Voo voo = new Voo();  
                     String origem = "", destino = "";
                     int id;
-                    clear();
-
-                    System.out.println("Qual seu nome?");
-                    String nome = key.nextLine();
-
+                     
+                    cliente = new Cliente(nome, cpf);
                     int posicao = -1;
 
                     for (Cliente c : clientes) {
@@ -158,13 +267,12 @@ public class App {
                             posicao = clientes.indexOf(c);
                     }
                     if(posicao == -1) {
-                        cliente.setNome(nome);
                         clientes.add(cliente);
                         posicao = 0;
                     }                    
                     
                     System.out.println();
-                    System.out.println("Informe o trecho\n");
+                    System.out.println("Informe o intinerário dos voos\n");
                     System.out.print("Local de Origem: ");
                     origem = key.nextLine();
 
@@ -174,7 +282,7 @@ public class App {
 
                     clear();
                     
-                    System.out.print("1 - A viagem é direta\n2 - Há conexão no voo\n\nOpição: ");
+                    System.out.print("1 - A viagem é direta\n2 - Há conexão(ões) no voo\n\nOpição: ");
                     int auxOption = Integer.parseInt(key.nextLine());
                     do{
                         if(auxOption > 2 || auxOption < 1){
@@ -197,14 +305,12 @@ public class App {
                     clear();
 
                     System.out.println("Intinerário inserido com sucesso!");
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
 
                     clear();
                     System.out.print("Informe a data do voo: ");
                     int[] data = formatDate(key.nextLine());
 
-                    // Criar método para validar data
-                   
                     voo.addTrecho(trecho);
                     voo.addData(data);
                     bilhete.addVoo(voo);
@@ -220,7 +326,7 @@ public class App {
 
                     
                     System.out.println("\n\nVoo inserido com sucesso!");
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     clear();
 
                     System.out.println(trecho.toString());
@@ -241,8 +347,15 @@ public class App {
                         System.out.println("|2º - Preto x1.50 - R$19,99 p/mês |");
                         System.out.println(" --------------------------------- ");
                         System.out.print("\n\nOpição: ");
-                        int acelerador = Integer.parseInt(key.nextLine());
-                    
+                        int opicao = Integer.parseInt(key.nextLine());
+                        String auxString = opicao == 1 ? "Prata" : "Preto";
+                        clientes.get(posicaoNaLista).changeAcelerator(auxString);
+                        clear();
+
+                        System.out.println("Acelerador adquirido com sucesso!");
+                        TimeUnit.SECONDS.sleep(1);
+
+
                     opicao = 0;
                     
                     break;
@@ -257,7 +370,7 @@ public class App {
                 case 4:
                     clear();
                     System.out.println("Opção 4");
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
 
                     clear();
                     opicao = 0;
@@ -265,8 +378,11 @@ public class App {
 
                 case 5:
                     clear();
-                    System.out.println("Opção 5");
-                    TimeUnit.SECONDS.sleep(2);
+                    System.out.print("Informe o CPF do cliente desejado: ");
+                    aux = key.nextLine();
+                    relatorio(aux);
+
+                    System.out.println("\n\nPressione enter para continuar: ");
 
                     clear();
                     opicao = 0;
@@ -276,7 +392,7 @@ public class App {
                     clear();
                     System.out.println("Obrigado e volte sempre!");
                     opicao = -1;
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     clear();
                     break;
 

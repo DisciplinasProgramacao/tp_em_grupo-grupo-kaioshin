@@ -14,16 +14,24 @@ import java.util.*;
  * Temos dois tipos de aceleradores: prata, com multiplicador 1.25 e preto, com multiplicador 1.5
  * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
  */
-public class Cliente implements IPontos{
+public class Cliente {
     private static int ID = 0;
+    private String cpf;
     private ArrayList<Compra> compras = new ArrayList<Compra>();
     private double pontos = 0;
     private String nome;
     private Acelerador acelerador = Acelerador.PADRAO;
 
-    public Cliente() {
-        Cliente.ID = ++Cliente.ID;
+    public Cliente(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.ID = ++Cliente.ID;        
     }
+
+    
+    //calcular os pontos
+
+
     /**
      * Recebe como parametro uma String com a descrição do acelerador
      * e altera para o tipo escolhido pelo cliente
@@ -37,7 +45,7 @@ public class Cliente implements IPontos{
     /**
      * Calcula os pontos adiquiridos até o momento
      */
-    @Override
+    
     public double calculatePoints() {
        double soma = compras.stream()
                             .mapToDouble(p -> p.getValue())
@@ -57,29 +65,53 @@ public class Cliente implements IPontos{
      */
     public void addListCompras(Compra c) {
         this.compras.add(c);
+        this.ordenaCompra();
         //ordenar por data
+    }
+
+    public void ordenaCompra(){
+        this.compras.stream()
+                    .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
     }
 
     /**
      * Cria o acelerador de pontos do cliente
      * @param desc
      */
-    public void pointsAccelerator(String desc) {
+    public void pointsAccelerator(Acelerador a) {
         try{
-            this.acelerador = desc.equals("Prata") ?  Acelerador.PRATA : Acelerador.PRETO;
+            this.acelerador = a;
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void relatorio() {
+        System.out.println("Relatório");
+        System.out.println("Nome: " + this.nome);
+        System.out.println("CPF: " + this.cpf);
+        System.out.println("Total de pontos: " + this.pontos);
+        System.out.println("Acelerador de pontos do tipo: " + acelerador.descricao);
+
+    }
+
+    public void showTickets() {
+        System.out.println("Histórico de bilhetes: ");
+
+        Data d = new Data();
+        
+            // System.out.println(this.compras.stream()
+            // .filter(c -> c.getData()) + "\n\n");
+        
+    }
+    public ArrayList getCompras() {
+        return this.compras;
     }
 
     public String getNome() {
         return this.nome;
     }
-
-
-
+    public String getCpf() {
+        return this.cpf;
+    }
 }

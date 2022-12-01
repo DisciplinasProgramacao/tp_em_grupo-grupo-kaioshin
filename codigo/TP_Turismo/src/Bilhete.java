@@ -33,109 +33,37 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bilhete implements IPromocao, IPontos {
+public abstract class Bilhete {
     
-    private String id = "263478";
-    private List<Voo> voos = new ArrayList<Voo>();
-    private double valorVooMaisCaro = 0;
-    private double valorDoBilhete =  0;
-    private double pontos = 0.0;
-
+    protected String id = "263478";
+    protected List<Voo> voos = new ArrayList<Voo>();
+    protected double valorVooMaisCaro = 0;
+    protected double valorDoBilhete = 0;
+    protected double pontos = 0.0;
+    protected String desc;
     /**
      * Este método adiciona um registro de voo no bilhete
      * @param voo Object
      */
-    public void addVoo(Voo voo) {
-        this.voos.add(voo);
-        this.init();
-    }
-
-    /**
-     * Sempre que adicionar um voo esta classe inicia as funções excenciais 
-     */
-    private void init() {
-        this.findTheMostExpensiveFlight();
-        this.calculatePrice();
-        this.calculatePoints();
-    }
+    public abstract void addVoo(Voo voo);
 
     /**
      * Este método removo um voo do bilhete
      * @param voo Object
      */
-    public void removeVoo(Voo voo) {
-        this.voos.remove(voo);
-    }
+    public abstract void removeVoo(Voo voo);
 
     
-    public String showVoo() {
-        String s;        
-        StringBuilder str = new StringBuilder("Bilhete : " + id + " || ");
-        for (Voo voo : voos) {
-            if(!voo.toString().isEmpty() && voo.toString() != null)
-            str.append(voo.toString());
-        }
-        s = str.toString();
-        return s;
-        
-    }
-
-    /**
-     * Este método verifica qual o voo mais caro e atribui a variável
-     */
-    private void findTheMostExpensiveFlight() {
-        for (Voo voo : voos) {
-            if(this.valorVooMaisCaro > voo.getBaseValue()) 
-                this.valorVooMaisCaro = voo.getBaseValue();
-        }
-    }
-
-    /**
-     * 
-     * @return Double preço do bilhete com base na regra da quantidade de voos
-     */
-    private void calculatePrice() {
-        int cont = 0;
-        double aux = 0;
-        for (Voo voo : voos) {
-            cont++;
-            aux += voo.getBaseValue();
-        }
-        if(cont > 1)
-            this.valorDoBilhete = (double)(aux * 50/100) + this.valorVooMaisCaro;
-        else
-            this.valorDoBilhete = (double)aux + (10/100 * aux);
-    }
-
-    public void pointsAccelerator() {
-
-    }
+    public abstract String showVoo();
 
     /**
      * Este método calcula os pontos gerado a partir do valor do bilhete,
      * seguindo a regra que a cada R$500,00 gera 500 pontos; 
      */
-    @Override
-    public double calculatePoints() {
-         return this.pontos = (double)this.valorDoBilhete/500;
-    }
-
-    @Override
-    public void ticketDiscount() {
-        this.valorDoBilhete = (Double)this.valorDoBilhete * 60/100;
-        this.pontos = this.pontos * 50/100;
-    }
-
-    @Override
-    public void ticketFaithfulness() {
-        this.valorDoBilhete = 0;
-        this.pontos = 0.0;
-    }
+    
+    public abstract double calculatePoints();
 
 
-
-    public double getValue() {
-        return this.valorDoBilhete;
-    }
+    public abstract double getValue();
 
 }

@@ -1,12 +1,18 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Compra {
     private Data dataDaCompra;
-    private Bilhete bilhete = new Bilhete();
-    
+    private Bilhete bilhete = null;
+   
     public void buyToTicket(Bilhete bilhete, int[] data) {
-        this.bilhete = bilhete;
+        this.bilhete = bilhete.pontos >= 10.500 ?  new BilheteFidelidade() :  bilhete;
         this.dataDaCompra = new Data(data[0],data[1],data[2]);
+        
+    }
+
+    public String getDescBilhete() {
+        return bilhete.toString();
     }
 
     public double getValue() {
@@ -15,5 +21,9 @@ public class Compra {
 
     public Data getData() {
         return this.dataDaCompra;
+    }
+
+    public Bilhete getBilhete(){
+        return this.bilhete;
     }
 }
