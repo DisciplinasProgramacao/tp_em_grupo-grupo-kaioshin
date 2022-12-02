@@ -5,7 +5,7 @@ public class Trecho {
     private int id;
     private String origem;
     private String destino;
-    private int cont = 1;
+    private int cont = 0;
 
     public Trecho(String origem, String destino, int idTrecho, ArrayList<String> conexao){
         this.origem = origem;
@@ -22,12 +22,17 @@ public class Trecho {
     public void calcTrechos() {
         if(!conexoes.isEmpty()){
             return;
+        } else {
+            for (String c : this.conexoes) {
+                if(c == null){
+                    return;
+                } 
+                
+                this.cont++;
+            }
+                
         }
-        for (String c : conexoes) {
-
-            this.cont++;
-        }
-        this.cont--;
+        
     }
 
     public String toString() {
