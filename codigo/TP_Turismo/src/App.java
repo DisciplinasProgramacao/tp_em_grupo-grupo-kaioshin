@@ -1,4 +1,4 @@
-//                                  Sprint 2
+//                                      Sprint 2
 /**
  * Na fase 2, começará o processo de formação de bilhetes para venda, com suas
  * respectivas regras.

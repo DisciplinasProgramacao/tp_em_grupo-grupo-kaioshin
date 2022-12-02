@@ -77,6 +77,11 @@ public class Cliente {
                     .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
     }
 
+    // public Bilhete last12months() {
+    //     this.compras.stream()
+    //                 .filter((b,b1) -> b.getData().compareTo(b1))
+    // }
+
     /**
      * Cria o acelerador de pontos do cliente
      * @param desc
