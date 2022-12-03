@@ -2,6 +2,7 @@
 public class BilhetePromocional extends Bilhete {
     final String DESC = "Promocional";
     private double desconto = 60/100 * this.valorDoBilhete;
+    private double valorDoBilhete = 600.00;
 
 
     public void addVoo(Voo voo) {
@@ -72,7 +73,7 @@ public class BilhetePromocional extends Bilhete {
      */
     
     public double calculatePoints() {
-         return this.pontos = (double)(this.valorDoBilhete/500) - 50/100 * this.pontos;
+         return this.pontos = (((int)this.valorDoBilhete/500) * 500) - (50/100 * this.pontos);
     }
 
 

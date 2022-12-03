@@ -75,18 +75,18 @@ public class Cliente {
                             .sum();
         return this.pontos = (500 * ((int)soma/500)) * acelerador.multiplicador;
     }
-    
 
     public void showShopping() {
         compras.stream()
-            .sorted()
-            .forEach(p-> System.out.println(p.toString()));
+            .sorted((d1,d2) -> d1.getData().compareTo(d2.getData()))
+            .forEach(p -> System.out.println(p.toString()));
     }
     /**
      * Adiciona na lista de compras 
-     * @param c
+     * @param c Compra
      */
     public void addListCompras(Compra c) {
+        c.setPreco(acelerador.custo);
         this.compras.add(c);
         this.ordenaCompra();
         calculatePoints();
@@ -100,11 +100,12 @@ public class Cliente {
                     .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
     }
 
-    // public void last12months() {
-    //     this.compras.stream()
-    //                 .filter(c -> c.getData() > App.hoje.)                    
-    //                 .forEach(b -> b.getBilhete().toString());
-    // }
+    public void last12months() {
+        
+        this.compras.stream()
+                    .filter(c -> c.getData().compareTo(App.umAnoAtras) == 1)
+                    .forEach(b -> System.out.println(b.getBilhete().showVoo()));
+    }
 
     /**
      * Cria o acelerador de pontos do cliente

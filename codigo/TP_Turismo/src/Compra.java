@@ -4,6 +4,7 @@ import java.util.Date;
 public class Compra {
     private Data dataDaCompra;
     private Bilhete bilhete = null;
+    private double preco;
    
     public void buyToTicket(Bilhete bilhete, int[] data) {
         this.bilhete = bilhete.pontos >= 10.500 ?  new BilheteFidelidade() :  bilhete;
@@ -14,10 +15,14 @@ public class Compra {
     public String toString() {
         String s;
 		
-        StringBuilder str = new StringBuilder("Compra: " + this.dataDaCompra.toString() + "\n");
+        StringBuilder str = new StringBuilder("Compra: " + this.dataDaCompra.dataFormatada() + "\n");
         str.append(bilhete.showVoo());
         s = str.toString();
         return s;
+    }
+
+    public void setPreco(double preco) {
+        preco += this.getValue() + preco;
     }
 
     public String getDescBilhete() {
@@ -25,7 +30,7 @@ public class Compra {
     }
 
     public double getValue() {
-        return bilhete.getValue();
+        return this.preco;
     }
 
     public Data getData() {

@@ -66,7 +66,7 @@
  * • Quais são os bilhetes de um cliente nos últimos 12 meses? Ele ganhou uma passagem grátis?
  * • Quem é o cliente com mais pontos acumulados nos últimos 12 meses?
  * • Quais são os voos para uma cidade, em uma data, com mais de 100 reservas?
- * • Qual o total valor arrecadado com bilhetes em todo o período de funcionamento da empresa,
+ * • Qual o total arrecadado com bilhetes em todo o período de funcionamento da empresa,
  * podendo ainda filtrar o valor por um mês escolhido?
  * 
  *  * Para a apresentação do protótipo ao cliente, espera-se que o sistema carregue e salve dados em
@@ -94,6 +94,7 @@ public class App {
     static Cliente cliente;
     static LocalDateTime now = LocalDateTime.now();
     public static Data hoje;
+    public static Data umAnoAtras;
     /**
      * Método para "limpar" tela console
      */
@@ -117,6 +118,11 @@ public class App {
         }
 
         return -1;
+    }
+
+    public static void umAnoAtrass(int[] hoje) {
+        umAnoAtras = new Data(hoje[0],hoje[1],hoje[2]-1);
+
     }
 
     public static void relatorio(String cpf) {
@@ -222,7 +228,7 @@ public class App {
         }
     }
     public static void pressEnter() {
-        System.out.println("\n\nPressione enter para continuar: ");
+        System.out.print("\n\nPressione enter para continuar: ");
         String aux = key.nextLine();
 
     }
@@ -236,6 +242,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         String auxStr[] = now.toString().split("T");
         int[] auxI = formatDate(inverteData(auxStr[0]));
+        umAnoAtrass(auxI);
         hoje = new Data(auxI[0],auxI[1],auxI[2]);
        
         clear();
@@ -417,7 +424,7 @@ public class App {
                                 opicao = 0;
                             break;
                             case 3:
-                                System.out.println("Acelerador de pontos: " + clientes.get(posicaoNaLista).getTypeAcelerator());
+                                System.out.println("\nAcelerador de pontos: " + clientes.get(posicaoNaLista).getTypeAcelerator());
                                 pressEnter();
                                 opicao = 0;
                             break;
@@ -426,7 +433,8 @@ public class App {
 
                 case 3:
                     clear();
-
+                        clientes.get(posicaoNaLista).last12months();
+                        pressEnter();
                     
                     opicao = 0;
                     break;

@@ -37,14 +37,14 @@ public class Trecho {
 
     public String toString() {
         String s;
-        StringBuilder str = new StringBuilder("Trecho : " + id);
+        StringBuilder str = new StringBuilder("Trecho: " + id);
         str.append(" || Origem: " + origem);
         
         for (String c : conexoes) {
             str.append(" || Conexão: " + c);
         }
         
-        str.append(" || Destinho : " + destino + "\n");
+        str.append(" || Destinho: " + destino + "\n");
         s = str.toString();
         return s;
     }
