@@ -14,6 +14,27 @@ import java.util.*;
  * Temos dois tipos de aceleradores: prata, com multiplicador 1.25 e preto, com multiplicador 1.5
  * Cada acelerador tem um custo mensal e pode ser trocado ou desativado a qualquer momento.
  */
+
+
+
+ //                                      Sprint 4
+/**
+ * A fase 4 é definida pela finalização dos testes e implementação do protótipo para a empresa cliente.
+ * Este protótipo precisa ter as funcionalidades básicas de cadastro de cliente, localização de voos e
+ * compra de bilhetes. A companhia precisa, também, das informações abaixo:
+ * • Relatório dos dados de um cliente específico.
+ * • Quais são os bilhetes de um cliente nos últimos 12 meses? Ele ganhou uma passagem grátis?
+ * • Quem é o cliente com mais pontos acumulados nos últimos 12 meses?
+ * • Quais são os voos para uma cidade, em uma data, com mais de 100 reservas?
+ * • Qual o total valor arrecadado com bilhetes em todo o período de funcionamento da empresa,
+ * podendo ainda filtrar o valor por um mês escolhido?
+ * 
+ *  * Para a apresentação do protótipo ao cliente, espera-se que o sistema carregue e salve dados em
+ * quantidade suficiente para que a validação dos requisitos acima possa ser demonstrada com segurança.
+ * A finalização formal da sprint 3 está prevista para 19/11. A implementação dos demais requisitos será
+ * observada ao longo da sprint 4 e a apresentação do protótipo está agendada para 05/12, com a
+ * possibilidade de ajustes finais até 09/12. 
+ */
 public class Cliente {
     private static int ID = 0;
     private String cpf;
@@ -29,8 +50,6 @@ public class Cliente {
     }
 
     
-    //calcular os pontos
-
     public void disabledAcelerator() {
         this.acelerador.disabled();
     }
@@ -49,11 +68,12 @@ public class Cliente {
      * Calcula os pontos adiquiridos até o momento
      */
     
-    public double calculatePoints() {
-       double soma = compras.stream()
-                            .mapToDouble(p -> p.getValue())
+    private double calculatePoints() {
+        double soma = compras.stream()
+                            .map(b -> b.getBilhete())
+                            .mapToDouble(v -> v.getValue())
                             .sum();
-        return this.pontos = soma/500;
+        return this.pontos = (500 * ((int)soma/500)) * acelerador.multiplicador;
     }
     
 
@@ -69,6 +89,9 @@ public class Cliente {
     public void addListCompras(Compra c) {
         this.compras.add(c);
         this.ordenaCompra();
+        calculatePoints();
+        
+        
         //ordenar por data
     }
 
@@ -77,9 +100,10 @@ public class Cliente {
                     .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
     }
 
-    // public Bilhete last12months() {
+    // public void last12months() {
     //     this.compras.stream()
-    //                 .filter((b,b1) -> b.getData().compareTo(b1))
+    //                 .filter(c -> c.getData() > App.hoje.)                    
+    //                 .forEach(b -> b.getBilhete().toString());
     // }
 
     /**
@@ -95,11 +119,13 @@ public class Cliente {
     }
 
     public void relatorio() {
-        System.out.println("Relatório");
+        App.clear();
+        System.out.println("Relatório:");
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
         System.out.println("Total de pontos: " + this.pontos);
-        System.out.println("Acelerador de pontos do tipo: " + acelerador.descricao);
+        System.out.println("Acelerador de pontos do tipo: " + this.acelerador.descricao);
+        this.showShopping();
 
     }
 
@@ -124,5 +150,9 @@ public class Cliente {
     }
     public String getCpf() {
         return this.cpf;
+    }
+
+    public double getPoints(){
+        return this.pontos;
     }
 }

@@ -45,7 +45,7 @@ public class BilheteFidelidade extends Bilhete {
     } 
 
     public double calculatePoints() {
-        return this.pontos += 0;
+        return this.pontos -= 10.500;
    }
    
     public double getValue() {

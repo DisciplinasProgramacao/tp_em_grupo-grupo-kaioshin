@@ -23,11 +23,12 @@ public class Voo {
     private static String ID_VOO = "7845";
     private Trecho trecho;
     private Data data;
-    private double baseValue = 249.99;
-    private double vooValue = this.baseValue * trecho.getQtdTrechos()-1;
+    private double baseValue = 600;
+    private double vooValue;
 
     public void addTrecho(Trecho trecho) {
         this.trecho = trecho;
+        this.vooValue = this.baseValue * trecho.getQtdTrechos()-1;
     }
 
     public Trecho removeTrecho(String idTrecho) {
@@ -44,7 +45,7 @@ public class Voo {
     public String toString() {
         String s;
 		
-        StringBuilder str = new StringBuilder("Voo : " + ID_VOO + " || " + this.data.dataFormatada() + " || ");
+        StringBuilder str = new StringBuilder("Voo: " + ID_VOO + " || " + this.data.dataFormatada() + " || ");
         str.append(trecho.toString());
         s = str.toString();
         return s;

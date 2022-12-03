@@ -11,6 +11,15 @@ public class Compra {
         
     }
 
+    public String toString() {
+        String s;
+		
+        StringBuilder str = new StringBuilder("Compra: " + this.dataDaCompra.toString() + "\n");
+        str.append(bilhete.showVoo());
+        s = str.toString();
+        return s;
+    }
+
     public String getDescBilhete() {
         return bilhete.toString();
     }

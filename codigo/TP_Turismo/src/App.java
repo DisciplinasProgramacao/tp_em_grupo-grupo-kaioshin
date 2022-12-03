@@ -76,6 +76,7 @@
  * possibilidade de ajustes finais até 09/12. 
  */
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -91,6 +92,8 @@ public class App {
     static Random aleat = new Random(42);
     static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //Cliente cadastrado no sistema
     static Cliente cliente;
+    static LocalDateTime now = LocalDateTime.now();
+    public static Data hoje;
     /**
      * Método para "limpar" tela console
      */
@@ -223,8 +226,18 @@ public class App {
         String aux = key.nextLine();
 
     }
+
+    public static String inverteData(String data) {
+        String inversor[] = data.split("-");
+        
+        return inversor[2] + "-" + inversor[1] + "-" + inversor[0]; 
+    }
     
     public static void main(String[] args) throws Exception {
+        String auxStr[] = now.toString().split("T");
+        int[] auxI = formatDate(inverteData(auxStr[0]));
+        hoje = new Data(auxI[0],auxI[1],auxI[2]);
+       
         clear();
         opicao = 0;
         cadastrar();
@@ -242,43 +255,52 @@ public class App {
             switch (opicao) {
                 case 1:
                     ArrayList<String> conexoes = new ArrayList<String>();
-                    System.out.println("Qual bilhete deseja?\n\n1- Bilhete Comum\n2- Bilhete com disconto\n3- Bilhete gratis usando os pontos");
-                    System.out.print("\n\nOpição: ");
-                    int num = Integer.parseInt(key.nextLine());
-                    clear();
+                    int num = 0;
+                    
                     Bilhete bilhete = null;
+                    do{
+                        System.out.println("Qual bilhete deseja?\n\n1- Bilhete Comum\n2- Bilhete com disconto\n3- Bilhete gratis usando os pontos");
+                        System.out.print("\n\nOpição: ");
+                        num = Integer.parseInt(key.nextLine());
+                        clear();
+                        switch(num) {
+                            case 1:
+                                bilhete = new BilheteComum();
+                                num = -1;
+                            break;
+                
+                            case 2: 
+                                bilhete = new BilhetePromocional();
+                                num = -1;
+                            break;
+                
+                            case 3:
+                                
+                                if(clientes.get(posicaoNaLista).getPoints() >= 10.500) {
+                                    bilhete = new BilheteFidelidade();
+                                    num = -1;
+                                } else {
+                                    System.out.println(clientes.get(posicaoNaLista).getNome() + " não possui pontos suficientes para adquirir esse bilhete\nPontos:\n" + clientes.get(posicaoNaLista).getPoints());
 
-                    switch(num) {
-                        case 1:
-                            bilhete = new BilheteComum();
-                        break;
-            
-                        case 2: 
-                            bilhete = new BilhetePromocional();
-                        break;
-            
-                        case 3:
-                        //precisa checar os pontos
-                            bilhete = new BilheteFidelidade();
-                        break;
-                    }
+                                }
+    
+                            break;
+                            default:
+
+                                    clear();
+                                    System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 3.");
+                                    System.out.println("\n\n\n");
+                                    num = 0;
+                                    break;
+                            }
+                        } while(num != -1);
+                    
                     
                     
                      
                     String origem = "", destino = "";
                     int id;
-                     
-                    cliente = new Cliente(nome, cpf);
-                    int posicao = -1;
-
-                    for (Cliente c : clientes) {
-                        if(c.getNome().equals(nome))
-                            posicao = clientes.indexOf(c);
-                    }
-                    if(posicao == -1) {
-                        clientes.add(cliente);
-                        posicao = 0;
-                    }                    
+                                       
                     
                     System.out.println();
                     System.out.println("Informe o intinerário dos voos\n");
@@ -331,7 +353,7 @@ public class App {
 
                     Compra c = new Compra();
                     c.buyToTicket(bilhete, dataAux);
-                    clientes.get(posicao).addListCompras(c);
+                    clientes.get(posicaoNaLista).addListCompras(c);
 
                     
                     System.out.println("\n\nVoo inserido com sucesso!");
@@ -343,6 +365,7 @@ public class App {
                     System.out.println("O valor do bilhete é: R$" + bilhete.getValue());
 
                     pressEnter();
+
 
                     break;
 
@@ -376,14 +399,15 @@ public class App {
                                     System.out.println(" --------------------------------- ");
                                     System.out.print("\n\nOpição: ");
                                     opicao = Integer.parseInt(key.nextLine());
+
                                 }while(opicao<1 || opicao>2);
                                 
                                 String auxString = opicao == 1 ? "Prata" : "Preto";
                                 clientes.get(posicaoNaLista).changeAcelerator(auxString);
-                                clear();
 
-                                System.out.println("Acelerador adquirido com sucesso!");
+                                System.out.println("\nAcelerador adquirido com sucesso!");
                                 TimeUnit.SECONDS.sleep(1);
+                                clear();
                                 opicao = 0;
                             break;
                             case 2:
@@ -446,17 +470,6 @@ public class App {
             }
 
         } while (opicao >= 0);
-        /**
-         * teste funcionalidade das classe
-         * 
-         */
-
-        // Voo voo = new Voo();
-        // Date data = new Date(122, 04, 1);
-        // voo.addTrecho(trecho);
-        // voo.addData(data);
-        // Bilhete bilhete = new Bilhete();
-        // bilhete.addVoo(voo);
-        // System.out.println(bilhete.showVoo());
+ 
     }
 }
