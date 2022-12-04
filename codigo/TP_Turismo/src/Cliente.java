@@ -42,6 +42,7 @@ public class Cliente {
     private double pontos = 0;
     private String nome;
     private Acelerador acelerador = Acelerador.PADRAO;
+    private boolean freeTicket = false;
 
     public Cliente(String nome, String cpf) {
         this.nome = nome;
@@ -95,6 +96,14 @@ public class Cliente {
         //ordenar por data
     }
 
+    public boolean checkFreeTicket() {
+       for (Compra c : compras) {
+            if(c.getFreeTicket() == true)
+                return true;
+       }
+       return false;
+    }
+
     public void ordenaCompra(){
         this.compras.stream()
                     .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
@@ -142,7 +151,7 @@ public class Cliente {
     public String getTypeAcelerator() {
         return this.acelerador.descricao;
     }
-    public ArrayList getCompras() {
+    public ArrayList<Compra> getCompras() {
         return this.compras;
     }
 

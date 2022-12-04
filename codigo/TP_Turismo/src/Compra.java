@@ -5,10 +5,12 @@ public class Compra {
     private Data dataDaCompra;
     private Bilhete bilhete = null;
     private double preco;
-   
+    private boolean freeTicket = false;
+
     public void buyToTicket(Bilhete bilhete, int[] data) {
         this.bilhete = bilhete.pontos >= 10.500 ?  new BilheteFidelidade() :  bilhete;
         this.dataDaCompra = new Data(data[0],data[1],data[2]);
+        this.freeTicket = bilhete.getType().equals("Fidelidade") ? true : false;
         
     }
 
@@ -36,8 +38,11 @@ public class Compra {
     public Data getData() {
         return this.dataDaCompra;
     }
+    public boolean getFreeTicket() {
+        return this.freeTicket;
+    }
 
-    public Bilhete getBilhete(){
+    public Bilhete getBilhete() {
         return this.bilhete;
     }
 }

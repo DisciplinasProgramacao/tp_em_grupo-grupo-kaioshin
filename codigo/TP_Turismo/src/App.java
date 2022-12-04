@@ -104,6 +104,14 @@ public class App {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    public static int compareTo(Cliente f, Cliente f2) {
+        if(f.getPoints() > f2.getPoints())
+            return 1;
+        else if(f.getPoints() < f2.getPoints())
+            return -1;
+        
+            return 0;
+    }
 
     public static int getPosition(String cpf) {
         for (int i=0; i<=clientes.size(); i++) {
@@ -148,7 +156,7 @@ public class App {
         System.out.println("|1º - Comprar Bilhete      |");
         System.out.println("|2º - Acelerador de Pontos |");
         System.out.println("|3º -                      |");
-        System.out.println("|4º -                      |");
+        System.out.println("|4º - Maior pontuação      |");
         System.out.println("|5º - Relatório Cliente    |");
         System.out.println("|6º - Sair                 |");
         System.out.println(" -------------------------- ");
@@ -434,14 +442,32 @@ public class App {
                 case 3:
                     clear();
                         clientes.get(posicaoNaLista).last12months();
+                        if(clientes.get(posicaoNaLista).checkFreeTicket()){
+                            System.out.println("\nO cliente recebeu bilhete fidelidade");
+                        }
+                            
+                        System.out.println("\nO cliente não recebeu bilhete fidelidade");
+                        
                         pressEnter();
                     
                     opicao = 0;
                     break;
 
-                case 4:
+                case 4://Quem é o cliente com mais pontos acumulados nos últimos 12 meses?
                     clear();
-                    System.out.println("Opção 4");
+                    System.out.println(
+                        clientes.stream()
+                                .max((f1,f2) -> App.compareTo(f1, f2))
+                                .map(cliente -> cliente.getCompras().stream()
+                                                                    .filter(compra -> compra.getData().compareTo(App.umAnoAtras) == 1)
+                                ).toString()
+                    );
+                        
+                                             
+                    
+                    
+                            
+                            
                     TimeUnit.SECONDS.sleep(1);
 
                     clear();

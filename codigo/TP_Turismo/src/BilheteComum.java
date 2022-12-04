@@ -33,7 +33,7 @@ public class BilheteComum extends Bilhete {
     private double valorVooMaisCaro = 0;
     private double valorDoBilhete = 0;
     private double pontos = 0.0;
-    final String DESC = "Comum";
+    final String desc = "Comum";
     
     public void addVoo(Voo voo) {
         this.voos.add(voo);
@@ -109,7 +109,7 @@ public class BilheteComum extends Bilhete {
     }
 
     public String getType() {
-        return this.DESC;
+        return this.desc;
     }
 
 }

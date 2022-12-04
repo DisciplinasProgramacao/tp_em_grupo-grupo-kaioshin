@@ -66,4 +66,6 @@ public abstract class Bilhete {
 
     public abstract double getValue();
 
+    public abstract String getType();
+
 }
