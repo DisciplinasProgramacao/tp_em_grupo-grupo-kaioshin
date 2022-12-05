@@ -19,7 +19,7 @@
  *  Se o bilhete tem vários voos, seu valor será a soma do preço do voo mais
  * caro com 50% do preço dos voos restantes.
  * 
- *  A cada R$500 do valor do bilhete, são gerados 500 pontos de fidelidade, sem valores
+ *  A cada R$500 do valor do bilhete, são gerados 500 pontos de fidelidade, sem valores 
  * fracionários (por exemplo, um bilhete de R$1000 gera 1000 pontos, um bilhete
  * de valor  R$1500 gera 1500 pontos. Um bilhete de R$1300 gera somente 1000 pontos).
  * 
@@ -137,17 +137,17 @@ public class App {
         clientes.get(getPosition(cpf)).relatorio();
     }
 
-    // public static void totalArrecadado() {
-    //     clientes.stream()
-    //             .mapToDouble(
-    //                 c->c.getCompras()
-    //                 .stream()
-    //                 .mapToDouble(b->b.getValue())
-    //             )
-    //             .sum();
-                
-                
-    // }
+    public static void totalArrecadado() {
+        System.out.println("Total em compras: " + 
+        clientes.stream()
+                .mapToDouble(
+                    c->c.getCompras()
+                    .stream()
+                    .mapToDouble(b->b.getValue())
+                    .sum()
+                ).sum()
+        );                
+    }
     
     public static void menu() {
         System.out.println(" -------------------------- ");
@@ -155,10 +155,11 @@ public class App {
         System.out.println(" ========================== ");
         System.out.println("|1º - Comprar Bilhete      |");
         System.out.println("|2º - Acelerador de Pontos |");
-        System.out.println("|3º -                      |");
+        System.out.println("|3º - Voos para uma cidade |");
         System.out.println("|4º - Maior pontuação      |");
         System.out.println("|5º - Relatório Cliente    |");
-        System.out.println("|6º - Sair                 |");
+        System.out.println("|6º - Total Arrecadado     |");
+        System.out.println("|7º - Sair                 |");
         System.out.println(" -------------------------- ");
 
         System.out.print("\nOpção: ");
@@ -462,11 +463,7 @@ public class App {
                                                                     .filter(compra -> compra.getData().compareTo(App.umAnoAtras) == 1)
                                 ).toString()
                     );
-                        
-                                             
-                    
-                    
-                            
+                       
                             
                     TimeUnit.SECONDS.sleep(1);
 
@@ -485,17 +482,24 @@ public class App {
                     clear();
                     opicao = 0;
                     break;
-
+                
                 case 6:
+                    clear();
+                    totalArrecadado();
+                    pressEnter();
+                    clear();
+                    
+                break;
+
+                case 7:
                     clear();
                     System.out.println("Obrigado e volte sempre!");
                     opicao = -1;
                     TimeUnit.SECONDS.sleep(1);
                     clear();
-                    break;
+                break;
 
                 default:
-
                     clear();
                     System.out.println("O valor informado é invalido!\nEscolha um valor entre 1 e 6.");
                     System.out.println("\n\n\n");
