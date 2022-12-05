@@ -95,16 +95,20 @@ public class App {
     static LocalDateTime now = LocalDateTime.now();
     public static Data hoje;
     public static Data umAnoAtras;
+
     /**
      * Método para "limpar" tela console
      */
-    
     public static void clear() {
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
+    /**
+     * Verifica se esse CPF já consta como cadastrado no sistema "ArrayList"
+     * @param cpf String
+     * @return boolean
+     */
     public static boolean checkCPF(String cpf) {
         for (Cliente cliente : clientes) {
             if(cliente.getCpf().equals(cpf))
@@ -113,6 +117,12 @@ public class App {
         return false;
     }   
 
+    /**
+     * Compara dois Objetos "Cliente" pelos pontos
+     * @param f Cliente
+     * @param f2 Cliente
+     * @return
+     */
     public static int compareTo(Cliente f, Cliente f2) {
         if(f.getPoints() > f2.getPoints())
             return 1;
@@ -122,6 +132,11 @@ public class App {
             return 0;
     }
 
+    /**
+     *  Recebe o cpf do cliente desejado, pesquisa no ArrayList de objeto Cliente e retorna a posição no array
+     * @return
+     * @param cpf String
+     */
     public static int getPosition(String cpf) {
         for (int i=0; i<=clientes.size(); i++) {
             try{
@@ -131,21 +146,43 @@ public class App {
             }catch(Exception e) {
                 return -1;
             }
-            
         }
-
         return -1;
     }
 
+    /**
+     * Salva na variável global a data de um ano atrás
+     * @param hoje  O próprio sistema cria e atribui valor para hoje
+     */
     public static void umAnoAtrass(int[] hoje) {
         umAnoAtras = new Data(hoje[0],hoje[1],hoje[2]-1);
 
     }
 
+    /**
+     * Seleciona o objeto cliente dentro do Array de clientes e chama a função relatório da classe
+     * @param cpf recebe como parametro o cpf sem pontos
+     */
     public static void relatorio(String cpf) {
         clientes.get(getPosition(cpf)).relatorio();
     }
 
+    /**
+     * Menu de cadastro e login
+     */
+    public static void menuCadastro() {
+        System.out.println(" -------------------------- ");
+        System.out.println("|   SELECIONE UMA OPÇÃO:   |");
+        System.out.println(" ========================== ");
+        System.out.println("|1º - Login                |");
+        System.out.println("|2º - Cadastrar            |");
+        System.out.println(" -------------------------- ");
+        
+        System.out.print("\nOpição: ");
+    }
+    /**
+     * Mostra total em compras
+     */
     public static void totalArrecadado() {
         System.out.println("Total em compras: " + 
         clientes.stream()
@@ -157,7 +194,36 @@ public class App {
                 ).sum()
         );                
     }
-    
+    /**
+     * Menu Acel
+     */
+    public static void menuPrecoAcelerador() {
+
+        System.out.println(" --------------------------------- ");
+        System.out.println("|      SELECIONE UMA OPÇÃO:       |");
+        System.out.println(" ================================= ");
+        System.out.println("|1º - Prata x1.25 - R$12,99 p/mês |");
+        System.out.println("|2º - Preto x1.50 - R$19,99 p/mês |");
+        System.out.println(" --------------------------------- ");
+        System.out.print("\n\nOpição: ");
+    }
+    /**
+     * Menu Acelerador
+     */
+    public static void menuAcelerador() {
+        System.out.println(" --------------------------------- ");
+        System.out.println("|      SELECIONE UMA OPÇÃO:       |");
+        System.out.println(" ================================= ");
+        System.out.println("| 1º - Adiquirir                  |");
+        System.out.println("| 2º - Desabilitar                |");
+        System.out.println("| 3º - Ver meu pacote             |");
+        System.out.println(" --------------------------------- ");
+        
+        System.out.print("\n\nOpição: ");
+    }
+    /**
+     * Menu Principal
+     */
     public static void menu() {
         System.out.println(" -------------------------- ");
         System.out.println("|   SELECIONE UMA OPÇÃO:   |");
@@ -173,20 +239,13 @@ public class App {
 
         System.out.print("\nOpção: ");
     }
-
+    /**
+     * Cadastrar um novo cliente ou logar com um já cadastrado
+     */
     public static void cadastrar() {
-       
-
         do {
             clear();
-            System.out.println(" -------------------------- ");
-            System.out.println("|   SELECIONE UMA OPÇÃO:   |");
-            System.out.println(" ========================== ");
-            System.out.println("|1º - Login                |");
-            System.out.println("|2º - Cadastrar            |");
-            System.out.println(" -------------------------- ");
-            
-            System.out.print("\n\nOpição: ");
+            menuCadastro();
     
             try {
                 opicao = Integer.parseInt(key.nextLine());
@@ -239,8 +298,11 @@ public class App {
             }
         } while (opicao >= 0);        
     }
-
-
+    /**
+     * Formata a data para o padrão esperado na classe Data
+     * @param DataText
+     * @return int[]
+     */
     public static int[] formatDate(String DataText) {
         if(DataText.contains("/")){
             String[] aux = DataText.split("/");
@@ -252,12 +314,20 @@ public class App {
             return auxI;
         }
     }
+    /**
+     * Metodo apénas para parar o cursor enquanto o usuário lê a informação no console
+     */
     public static void pressEnter() {
         System.out.print("\n\nPressione enter para continuar: ");
         String aux = key.nextLine();
 
     }
-
+    
+    /**
+     * Recebe como parâmetro a data ne um formato e inverte ela
+     * @param data String
+     * @return
+     */
     public static String inverteData(String data) {
         String inversor[] = data.split("-");
         
@@ -383,12 +453,10 @@ public class App {
                     
                     clear();
 
-
                     Compra c = new Compra();
                     c.buyToTicket(bilhete, dataAux);
                     clientes.get(posicaoNaLista).addListCompras(c);
 
-                    
                     System.out.println("\n\nVoo inserido com sucesso!");
                     TimeUnit.SECONDS.sleep(1);
                     clear();
@@ -404,15 +472,7 @@ public class App {
 
                 case 2:
                     clear();
-                        System.out.println(" --------------------------------- ");
-                        System.out.println("|      SELECIONE UMA OPÇÃO:       |");
-                        System.out.println(" ================================= ");
-                        System.out.println("| 1º - Adiquirir                  |");
-                        System.out.println("| 2º - Desabilitar                |");
-                        System.out.println("| 3º - Ver meu pacote             |");
-                        System.out.println(" --------------------------------- ");
-                        
-                        System.out.print("\n\nOpição: ");
+                        menuAcelerador();
                         opicao = Integer.parseInt(key.nextLine());
 
                         switch(opicao) {
@@ -424,13 +484,7 @@ public class App {
                                         TimeUnit.SECONDS.sleep(1);
                                         clear();
                                     }
-                                    System.out.println(" --------------------------------- ");
-                                    System.out.println("|      SELECIONE UMA OPÇÃO:       |");
-                                    System.out.println(" ================================= ");
-                                    System.out.println("|1º - Prata x1.25 - R$12,99 p/mês |");
-                                    System.out.println("|2º - Preto x1.50 - R$19,99 p/mês |");
-                                    System.out.println(" --------------------------------- ");
-                                    System.out.print("\n\nOpição: ");
+                                    menuPrecoAcelerador();
                                     opicao = Integer.parseInt(key.nextLine());
 
                                 }while(opicao<1 || opicao>2);
