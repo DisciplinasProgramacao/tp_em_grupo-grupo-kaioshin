@@ -28,7 +28,7 @@ public class Voo {
 
     public void addTrecho(Trecho trecho) {
         this.trecho = trecho;
-        this.vooValue = this.baseValue * trecho.getQtdTrechos()-1;
+        this.vooValue = this.baseValue * (trecho.getQtdTrechos());
     }
 
     public Trecho removeTrecho(String idTrecho) {

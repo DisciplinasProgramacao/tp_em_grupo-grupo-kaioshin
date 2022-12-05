@@ -219,9 +219,7 @@ public class App {
                     opicao = 0;
                     break;
             }
-        } while (opicao >= 0);
-        
-        
+        } while (opicao >= 0);        
     }
 
 
