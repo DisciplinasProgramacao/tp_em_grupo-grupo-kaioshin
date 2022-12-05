@@ -38,7 +38,7 @@ public abstract class Bilhete {
     protected String id = "263478";
     protected List<Voo> voos = new ArrayList<Voo>();
     protected double valorVooMaisCaro = 0;
-    protected double valorDoBilhete = 0;
+    protected double valorDoBilhete = 600;
     protected double pontos = 0.0;
     protected String desc;
     /**
@@ -65,5 +65,7 @@ public abstract class Bilhete {
 
 
     public abstract double getValue();
+
+    public abstract String getType();
 
 }

@@ -17,8 +17,11 @@ public enum Acelerador {
         return pontos * this.multiplicador;
     }
 
-    double getCusto() {
+    public double getCusto() {
         return this.custo;
+    }
+    public void disabled() {
+        this.descricao = "Não possui Acelerador";
     }
 
     @Override
