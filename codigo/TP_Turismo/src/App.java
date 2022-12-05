@@ -104,6 +104,15 @@ public class App {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    public static boolean checkCPF(String cpf) {
+        for (Cliente cliente : clientes) {
+            if(cliente.getCpf().equals(cpf))
+            return true;
+        }
+        return false;
+    }   
+
     public static int compareTo(Cliente f, Cliente f2) {
         if(f.getPoints() > f2.getPoints())
             return 1;
@@ -166,24 +175,27 @@ public class App {
     }
 
     public static void cadastrar() {
-        System.out.println(" -------------------------- ");
-        System.out.println("|   SELECIONE UMA OPÇÃO:   |");
-        System.out.println(" ========================== ");
-        System.out.println("|1º - Login                |");
-        System.out.println("|2º - Cadastrar            |");
-        System.out.println(" -------------------------- ");
-        
-        System.out.print("\n\nOpição: ");
-
-        try {
-            opicao = Integer.parseInt(key.nextLine());
-        }catch(Exception e) {
-            opicao = -1;
-        }
+       
 
         do {
             clear();
+            System.out.println(" -------------------------- ");
+            System.out.println("|   SELECIONE UMA OPÇÃO:   |");
+            System.out.println(" ========================== ");
+            System.out.println("|1º - Login                |");
+            System.out.println("|2º - Cadastrar            |");
+            System.out.println(" -------------------------- ");
+            
+            System.out.print("\n\nOpição: ");
+    
+            try {
+                opicao = Integer.parseInt(key.nextLine());
+            }catch(Exception e) {
+                opicao = -1;
+            }
+            
             String cpf;
+            clear();
             switch(opicao) {
                 case 1:
                     System.out.print("Informe por gentileza o CPF cadastrado: ");
@@ -206,10 +218,16 @@ public class App {
                         String nome = key.nextLine();
                         System.out.print("\nInforme o CPF: ");
                          cpf = key.nextLine();
+                        if(!checkCPF(cpf)) {
+                            cliente = new Cliente(nome, cpf);
+                            clientes.add(cliente);
+                            opicao = 1;
+                        } else {
+                            System.out.println("\n\nO CPF inserido já está cadastrado!\n\n");
 
-                        cliente = new Cliente(nome, cpf);
-                        clientes.add(cliente);
-                        opicao = 1;
+                            opicao = 2;
+                        }
+                        
                     break;
     
                 default:
@@ -294,8 +312,9 @@ public class App {
                                     bilhete = new BilheteFidelidade();
                                     num = -1;
                                 } else {
-                                    System.out.println(clientes.get(posicaoNaLista).getNome() + " não possui pontos suficientes para adquirir esse bilhete\nPontos:\n" + clientes.get(posicaoNaLista).getPoints());
-
+                                    System.out.println(clientes.get(posicaoNaLista).getNome() + " não possui pontos suficientes para adquirir o bilhete fidelidade\nPontos:\n" + clientes.get(posicaoNaLista).getPoints());
+                                    pressEnter();
+                                    clear();
                                 }
     
                             break;
@@ -471,8 +490,18 @@ public class App {
 
                 case 5:
                     clear();
-                    System.out.print("Informe o CPF do cliente desejado: ");
-                    String aux = key.nextLine();
+                    boolean auxBool = false;
+                    String aux;
+                    do{
+                        System.out.print("Informe o CPF do cliente desejado: ");
+                        aux = key.nextLine();
+                        auxBool = checkCPF(aux);
+                        if(!auxBool){
+                            clear();
+                            System.out.print("O CPF informado não está cadastrado! Tente novamente.");
+                            pressEnter();
+                        }
+                    } while(!auxBool);
                     relatorio(aux);
 
                     pressEnter();
