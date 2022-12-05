@@ -20,7 +20,7 @@ public class Trecho {
     }
 
     public void calcTrechos() {
-        if(!conexoes.isEmpty()){
+        if(conexoes.isEmpty()){
             return;
         } else {
             for (String c : this.conexoes) {

@@ -23,7 +23,7 @@ public class Voo {
     private static String ID_VOO = "7845";
     private Trecho trecho;
     private Data data;
-    private double baseValue = 600;
+    private double baseValue = 600.00;
     private double vooValue;
 
     public void addTrecho(Trecho trecho) {

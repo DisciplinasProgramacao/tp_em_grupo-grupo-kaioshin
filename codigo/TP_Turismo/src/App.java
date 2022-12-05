@@ -275,7 +275,7 @@ public class App {
                     
                     Bilhete bilhete = null;
                     do{
-                        System.out.println("Qual bilhete deseja?\n\n1- Bilhete Comum\n2- Bilhete com disconto\n3- Bilhete gratis usando os pontos");
+                        System.out.println("Qual bilhete deseja?\n\n1- Bilhete Comum\n2- Bilhete com desconto\n3- Bilhete gratis usando os pontos");
                         System.out.print("\n\nOpição: ");
                         num = Integer.parseInt(key.nextLine());
                         clear();

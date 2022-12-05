@@ -31,8 +31,6 @@ public class BilheteComum extends Bilhete {
     private String id = "263478";
     private List<Voo> voos = new ArrayList<Voo>();
     private double valorVooMaisCaro = 0;
-    private double valorDoBilhete = 0;
-    private double pontos = 0.0;
     final String desc = "Comum";
     
     public void addVoo(Voo voo) {
@@ -72,8 +70,8 @@ public class BilheteComum extends Bilhete {
      */
     private void findTheMostExpensiveFlight() {
         for (Voo voo : voos) {
-            if(this.valorVooMaisCaro > voo.getBaseValue()) 
-                this.valorVooMaisCaro = voo.getBaseValue();
+            if(this.valorVooMaisCaro > voo.getVooValue()) 
+                this.valorVooMaisCaro = voo.getVooValue();
         }
     }
 
@@ -81,12 +79,12 @@ public class BilheteComum extends Bilhete {
      * 
      * @return Double preço do bilhete com base na regra da quantidade de voos
      */
-    private void calculatePrice() {
+    public void calculatePrice() {
         int cont = 0;
         double aux = 0;
         for (Voo voo : voos) {
             cont++;
-            aux += voo.getBaseValue();
+            aux += voo.getVooValue();
         }
         if(cont > 1)
             this.valorDoBilhete = (double)(aux * 50/100) + this.valorVooMaisCaro;

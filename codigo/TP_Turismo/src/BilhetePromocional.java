@@ -2,10 +2,6 @@
 public class BilhetePromocional extends Bilhete {
     final String DESC = "Promocional";
 
-    private double valorBase = 600;
-    private double desconto = 60/100 * this.valorBase;
-    private double valorDoBilhete = this.valorBase - this.desconto;
-
 
     public void addVoo(Voo voo) {
         this.voos.add(voo);
@@ -56,17 +52,19 @@ public class BilhetePromocional extends Bilhete {
      * 
      * @return Double preço do bilhete com base na regra da quantidade de voos
      */
-    private void calculatePrice() {
+    public void calculatePrice() {
         int cont = 0;
         double aux = 0;
         for (Voo voo : voos) {
             cont++;
-            aux += voo.getBaseValue();
+            aux += voo.getVooValue();
         }
         if(cont > 1)
-            this.valorDoBilhete = (double)((aux * 50/100) + this.valorVooMaisCaro) - this.desconto;
-        else
-            this.valorDoBilhete = (double)(aux + (10/100 * aux)) - this.desconto;
+            this.valorDoBilhete = (double)aux * 0.5 + this.valorVooMaisCaro;
+        else {
+            this.valorDoBilhete = (double)0.1 * aux + aux;
+            this.valorDoBilhete += (double)-0.6 * this.valorDoBilhete; //aplicando desconto
+        }
     }
 
     /**
