@@ -1,8 +1,9 @@
 // Bilhetes promocionais: 60% do valor e 50% dos pontos
 public class BilhetePromocional extends Bilhete {
     final String DESC = "Promocional";
-    private double desconto = 60/100 * this.valorDoBilhete;
-
+    private double valorBase = 600;
+    private double desconto = 60/100 * this.valorBase;
+    private double valorDoBilhete = this.valorBase - this.desconto;
 
     public void addVoo(Voo voo) {
         this.voos.add(voo);
