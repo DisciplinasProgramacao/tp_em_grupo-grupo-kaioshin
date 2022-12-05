@@ -224,7 +224,7 @@ public class App {
                             opicao = 1;
                         } else {
                             System.out.println("\n\nO CPF inserido já está cadastrado!\n\n");
-
+                            pressEnter();
                             opicao = 2;
                         }
                         
@@ -521,9 +521,11 @@ public class App {
                 case 7:
                     clear();
                     System.out.println("Obrigado e volte sempre!");
-                    opicao = -1;
+                    
                     TimeUnit.SECONDS.sleep(1);
                     clear();
+                    cadastrar();
+                    opicao = 0;
                 break;
 
                 default:
