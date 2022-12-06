@@ -36,21 +36,25 @@ import java.util.*;
  * possibilidade de ajustes finais até 09/12. 
  */
 public class Cliente {
-    private static int ID = 0;
     private String cpf;
     private ArrayList<Compra> compras = new ArrayList<Compra>();
     private double pontos = 0;
     private String nome;
     private Acelerador acelerador = Acelerador.PADRAO;
-    private boolean freeTicket = false;
-
+    
+    /**
+     * Construtor
+     * @param nome String
+     * @param cpf String
+     */
     public Cliente(String nome, String cpf) {
         this.nome = nome;
-        this.cpf = cpf;
-        this.ID = ++Cliente.ID;        
+        this.cpf = cpf;        
     }
 
-    
+    /**
+     * Desabilita o Acelerador de pontos que o cliente havia comprado
+     */
     public void disabledAcelerator() {
         this.acelerador.disabled();
     }
@@ -68,7 +72,6 @@ public class Cliente {
     /**
      * Calcula os pontos adiquiridos até o momento
      */
-    
     private double calculatePoints() {
         double soma = compras.stream()
                             .map(b -> b.getBilhete())
@@ -76,7 +79,9 @@ public class Cliente {
                             .sum();
         return this.pontos = (500 * ((int)soma/500)) * acelerador.multiplicador;
     }
-
+    /**
+     * Mostra na tela as compras do cliente
+     */
     public void showShopping() {
         compras.stream()
             .sorted((d1,d2) -> d1.getData().compareTo(d2.getData()))
@@ -91,11 +96,12 @@ public class Cliente {
         this.compras.add(c);
         this.ordenaCompra();
         calculatePoints();
-        
-        
-        //ordenar por data
-    }
 
+    }
+    /**
+     * Verifica se o cliente recebeu bilhete fidelidade
+     * @return boolean
+     */
     public boolean checkFreeTicket() {
        for (Compra c : compras) {
             if(c.getFreeTicket() == true)
@@ -103,19 +109,21 @@ public class Cliente {
        }
        return false;
     }
-
-    public void ordenaCompra(){
+    /**
+     * Método para ordenar compra
+     */
+    private void ordenaCompra(){
         this.compras.stream()
                     .sorted((c1,c2) -> c1.getData().compareTo(c2.getData()));
     }
-
+    /**
+     * Filtra as compras feitas nos ultimos 12 meses e exibe na tela
+     */
     public void last12months() {
-        
         this.compras.stream()
                     .filter(c -> c.getData().compareTo(App.umAnoAtras) == 1)
                     .forEach(b -> System.out.println(b.getBilhete().showVoo()));
     }
-
     /**
      * Cria o acelerador de pontos do cliente
      * @param desc
@@ -127,14 +135,16 @@ public class Cliente {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Exibe na tela os dados do cliente
+     */
     public void relatorio() {
         App.clear();
         System.out.println("Relatório:");
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
         System.out.println("Total de pontos: " + this.pontos);
-        System.out.println("Acelerador de pontos do tipo: " + this.acelerador.descricao);
+        System.out.println("Acelerador de pontos do tipo: " + this.acelerador.descricao + "\n");
         this.showShopping();
 
     }
@@ -148,20 +158,38 @@ public class Cliente {
             // .filter(c -> c.getData()) + "\n\n");
         
     }
+    /**
+     * Retorna qual o Acelerador de pontos do cliente
+     * @return String
+     */
     public String getTypeAcelerator() {
         return this.acelerador.descricao;
     }
+    /**
+     * Retorna as compras do cliente
+     * @return ArrayList<Compra>
+     */
     public ArrayList<Compra> getCompras() {
         return this.compras;
-    }
-
+    }    
+    /**
+     * Retorna o Nome do Cliente
+     * @return String
+     */
     public String getNome() {
         return this.nome;
     }
+    /**
+     * Retorna o CPF do cliente
+     * @return String
+     */
     public String getCpf() {
         return this.cpf;
     }
-
+    /**
+     * Retorna os pontos do cliente
+     * @return double
+     */
     public double getPoints(){
         return this.pontos;
     }

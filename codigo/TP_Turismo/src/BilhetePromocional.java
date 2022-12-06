@@ -63,7 +63,7 @@ public class BilhetePromocional extends Bilhete {
             this.valorDoBilhete = (double)aux * 0.5 + this.valorVooMaisCaro;
         else {
             this.valorDoBilhete = (double)0.1 * aux + aux;
-            this.valorDoBilhete += (double)-0.6 * this.valorDoBilhete; //aplicando desconto
+            this.valorDoBilhete += (double)-0.4 * this.valorDoBilhete; //aplicando desconto
         }
     }
 

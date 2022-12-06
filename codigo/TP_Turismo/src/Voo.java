@@ -20,11 +20,15 @@
 import java.util.Date;
 
 public class Voo {
-    private static String ID_VOO = "7845";
+    private static int ID_VOO = 0;
     private Trecho trecho;
     private Data data;
     private double baseValue = 600.00;
     private double vooValue;
+
+    public Voo() {
+        ++ID_VOO;
+    }
 
     public void addTrecho(Trecho trecho) {
         this.trecho = trecho;

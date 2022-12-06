@@ -90,7 +90,7 @@ public class App {
     static String nome, cpf;
     static Scanner key = new Scanner(System.in);
     static Random aleat = new Random(42);
-    static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //Cliente cadastrado no sistema
+    static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); 
     static Cliente cliente;
     static LocalDateTime now = LocalDateTime.now();
     public static Data hoje;
@@ -116,7 +116,6 @@ public class App {
         }
         return false;
     }   
-
     /**
      * Compara dois Objetos "Cliente" pelos pontos
      * @param f Cliente
@@ -131,7 +130,6 @@ public class App {
         
             return 0;
     }
-
     /**
      *  Recebe o cpf do cliente desejado, pesquisa no ArrayList de objeto Cliente e retorna a posição no array
      * @return
@@ -149,7 +147,6 @@ public class App {
         }
         return -1;
     }
-
     /**
      * Salva na variável global a data de um ano atrás
      * @param hoje  O próprio sistema cria e atribui valor para hoje
@@ -158,7 +155,6 @@ public class App {
         umAnoAtras = new Data(hoje[0],hoje[1],hoje[2]-1);
 
     }
-
     /**
      * Seleciona o objeto cliente dentro do Array de clientes e chama a função relatório da classe
      * @param cpf recebe como parametro o cpf sem pontos
@@ -166,7 +162,6 @@ public class App {
     public static void relatorio(String cpf) {
         clientes.get(getPosition(cpf)).relatorio();
     }
-
     /**
      * Menu de cadastro e login
      */
@@ -322,7 +317,6 @@ public class App {
         String aux = key.nextLine();
 
     }
-    
     /**
      * Recebe como parâmetro a data ne um formato e inverte ela
      * @param data String
@@ -333,7 +327,6 @@ public class App {
         
         return inversor[2] + "-" + inversor[1] + "-" + inversor[0]; 
     }
-    
     public static void main(String[] args) throws Exception {
         String auxStr[] = now.toString().split("T");
         int[] auxI = formatDate(inverteData(auxStr[0]));
@@ -525,7 +518,7 @@ public class App {
                     opicao = 0;
                     break;
 
-                case 4://Quem é o cliente com mais pontos acumulados nos últimos 12 meses?
+                case 4: // Precisa corrigir
                     clear();
                     System.out.println(
                         clientes.stream()
