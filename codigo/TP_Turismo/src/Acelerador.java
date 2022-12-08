@@ -20,6 +20,7 @@ public enum Acelerador {
     public double getCusto() {
         return this.custo;
     }
+    
     public void disabled() {
         this.descricao = "Não possui Acelerador";
     }

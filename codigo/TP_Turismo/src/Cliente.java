@@ -66,7 +66,7 @@ public class Cliente {
      */
     public void changeAcelerator(String desc) {
         this.acelerador = Acelerador.PADRAO;
-        this.acelerador = desc.equals("Prata") ?  Acelerador.PRATA : Acelerador.PRETO;
+        this.acelerador = Acelerador.valueOf(desc);
     }
 
     /**

@@ -73,7 +73,9 @@ public class BilhetePromocional extends Bilhete {
      */
     
     public double calculatePoints() {
-         return this.pontos = (((int)this.valorDoBilhete/500) * 500) - (50/100 * this.pontos);
+         this.pontos = (((int)this.valorDoBilhete/500) * 500);
+
+         return this.pontos  - (50/100 * this.pontos);
     }
 
 

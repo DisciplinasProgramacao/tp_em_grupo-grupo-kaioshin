@@ -8,10 +8,10 @@ public class Compra {
     private boolean freeTicket = false;
 
     public void buyToTicket(Bilhete bilhete, int[] data) {
-        this.bilhete = bilhete.pontos >= 10.500 ?  new BilheteFidelidade() :  bilhete;
+        this.bilhete = bilhete.pontos >= 10500 ?  new BilheteFidelidade() :  bilhete;
         this.dataDaCompra = new Data(data[0],data[1],data[2]);
         this.freeTicket = bilhete.getType().equals("Fidelidade") ? true : false;
-        
+        this.preco = bilhete.getValue();
     }
 
     public String toString() {
@@ -24,7 +24,7 @@ public class Compra {
     }
 
     public void setPreco(double preco) {
-        preco += this.getValue() + preco;
+        this.preco += this.getValue() + preco;
     }
 
     public String getDescBilhete() {

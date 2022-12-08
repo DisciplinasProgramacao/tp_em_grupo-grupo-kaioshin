@@ -371,11 +371,11 @@ public class App {
                 
                             case 3:
                                 
-                                if(clientes.get(posicaoNaLista).getPoints() >= 10.500) {
+                                if(clientes.get(posicaoNaLista).getPoints() >= 10500) {
                                     bilhete = new BilheteFidelidade();
                                     num = -1;
                                 } else {
-                                    System.out.println(clientes.get(posicaoNaLista).getNome() + " não possui pontos suficientes para adquirir o bilhete fidelidade\nPontos:\n" + clientes.get(posicaoNaLista).getPoints());
+                                    System.out.print(clientes.get(posicaoNaLista).getNome() + " não possui pontos suficientes para adquirir o bilhete fidelidade\nPontos: " + clientes.get(posicaoNaLista).getPoints() + "\n");
                                     pressEnter();
                                     clear();
                                 }
